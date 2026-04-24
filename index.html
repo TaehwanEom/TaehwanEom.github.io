@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AtticLab — 작은 다락방 연구소</title>
+  <title>AtticLab — A small indie studio</title>
   <meta name="description" content="AtticLab is a small indie studio crafting focused productivity apps. Makers of ShutTimer and more.">
   <meta name="theme-color" content="#ff2424">
   <style>
@@ -76,14 +76,8 @@
       width: 52px;
       height: 52px;
       border-radius: 12px;
-      background: #ff2424;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffffff;
-      font-weight: 800;
-      font-size: 22px;
       flex-shrink: 0;
+      object-fit: cover;
     }
     .app-info { flex: 1; }
     .app-name {
@@ -133,28 +127,27 @@
 <body>
   <main class="container">
     <h1 class="brand">AtticLab</h1>
-    <p class="tagline">작은 다락방 연구소 · A small indie studio from the attic</p>
+    <p class="tagline">A small indie studio from the attic</p>
 
     <p class="intro">
-      조용하고 집중된 생산성 앱을 만드는 작은 스튜디오입니다.<br>
       We craft quiet, focused productivity apps.
     </p>
 
     <section class="apps-section">
       <h2 class="section-title">Our Apps</h2>
       <a class="app-card" href="https://apps.apple.com/app/id6761991860">
-        <div class="app-icon">S</div>
+        <img class="app-icon" src="/shuttimer-icon.png" alt="ShutTimer" width="52" height="52">
         <div class="app-info">
           <div class="app-name">ShutTimer</div>
-          <div class="app-desc">Your Focus Timer · 집중 타이머</div>
+          <div class="app-desc">Your Focus Timer</div>
         </div>
         <div class="app-arrow">→</div>
       </a>
     </section>
 
     <nav class="links">
-      <a class="link-btn" href="/privacy">개인정보 처리방침 / Privacy Policy</a>
-      <a class="link-btn" href="mailto:hwan4870a@gmail.com">문의 / Contact</a>
+      <a class="link-btn" href="/privacy">Privacy Policy</a>
+      <a class="link-btn" href="mailto:hwan4870a@gmail.com">Contact</a>
     </nav>
 
     <footer class="footer">
