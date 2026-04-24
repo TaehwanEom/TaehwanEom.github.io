@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShutTimer — Your Focus Timer</title>
+  <meta name="description" content="ShutTimer is a focus timer app for iOS. Stay productive with customizable alarms and missions.">
+  <meta name="theme-color" content="#ff2424">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Apple SD Gothic Neo', sans-serif;
+      background: #f9f9fe;
+      color: #1a1c1f;
+      line-height: 1.6;
+      padding: 40px 20px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      max-width: 560px;
+      width: 100%;
+      text-align: center;
+    }
+    .logo {
+      font-size: 44px;
+      font-weight: 800;
+      color: #ff2424;
+      margin-bottom: 8px;
+      letter-spacing: -1px;
+    }
+    .tagline {
+      font-size: 17px;
+      color: #5d5e63;
+      margin-bottom: 36px;
+    }
+    .description {
+      font-size: 16px;
+      color: #1a1c1f;
+      margin-bottom: 40px;
+      padding: 0 10px;
+    }
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 14px 24px;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .btn:hover { opacity: 0.88; }
+    .btn:active { transform: scale(0.98); }
+    .btn.primary { background: #ff2424; color: #ffffff; }
+    .btn.secondary {
+      background: #ffffff;
+      color: #1a1c1f;
+      border: 1px solid #e0e0e8;
+    }
+    .footer {
+      font-size: 13px;
+      color: #8e9099;
+      padding-top: 24px;
+      border-top: 1px solid #e0e0e8;
+    }
+    .footer a { color: #8e9099; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1 class="logo">ShutTimer</h1>
+    <p class="tagline">Your Focus Timer</p>
+    <p class="description">
+      집중이 필요한 순간, ShutTimer와 함께하세요.<br>
+      Stay focused and productive with ShutTimer.
+    </p>
+    <nav class="links">
+      <a class="btn primary" href="https://apps.apple.com/app/id6761991860">App Store에서 다운로드</a>
+      <a class="btn secondary" href="https://charm-ski-ed5.notion.site/Privacy-Policy-for-ShutTimer-33de3454b01080dbb7">개인정보 처리방침 / Privacy Policy</a>
+      <a class="btn secondary" href="mailto:hwan4870a@gmail.com">지원 문의 / Support</a>
+    </nav>
+    <footer class="footer">
+      © 2026 TLabs. All rights reserved.
+    </footer>
+  </main>
+</body>
+</html>
