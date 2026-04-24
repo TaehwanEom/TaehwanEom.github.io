@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShutTimer — Your Focus Timer</title>
-  <meta name="description" content="ShutTimer is a focus timer app for iOS. Stay productive with customizable alarms and missions.">
+  <title>AtticLab — 작은 다락방 연구소</title>
+  <meta name="description" content="AtticLab is a small indie studio crafting focused productivity apps. Makers of ShutTimer and more.">
   <meta name="theme-color" content="#ff2424">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -14,82 +14,151 @@
       background: #f9f9fe;
       color: #1a1c1f;
       line-height: 1.6;
-      padding: 40px 20px;
+      padding: 48px 20px;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     .container {
-      max-width: 560px;
+      max-width: 640px;
       width: 100%;
       text-align: center;
     }
-    .logo {
-      font-size: 44px;
+    .brand {
+      font-size: 40px;
       font-weight: 800;
-      color: #ff2424;
+      color: #1a1c1f;
       margin-bottom: 8px;
       letter-spacing: -1px;
     }
     .tagline {
-      font-size: 17px;
-      color: #5d5e63;
-      margin-bottom: 36px;
-    }
-    .description {
       font-size: 16px;
+      color: #5d5e63;
+      margin-bottom: 48px;
+    }
+    .intro {
+      font-size: 15px;
       color: #1a1c1f;
-      margin-bottom: 40px;
+      margin-bottom: 48px;
       padding: 0 10px;
+    }
+    .apps-section {
+      margin-bottom: 48px;
+    }
+    .section-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #8e9099;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    .app-card {
+      background: #ffffff;
+      border: 1px solid #e7e7ef;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 12px;
+      text-align: left;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+    .app-card:hover {
+      transform: translateY(-2px);
+      border-color: #ff2424;
+    }
+    .app-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: #ff2424;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .app-info { flex: 1; }
+    .app-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1a1c1f;
+      margin-bottom: 2px;
+    }
+    .app-desc {
+      font-size: 13px;
+      color: #5d5e63;
+    }
+    .app-arrow {
+      font-size: 20px;
+      color: #8e9099;
     }
     .links {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       margin-bottom: 40px;
     }
-    .btn {
+    .link-btn {
       display: inline-block;
-      padding: 14px 24px;
+      padding: 12px 20px;
       text-decoration: none;
-      border-radius: 12px;
+      border-radius: 10px;
       font-weight: 600;
-      font-size: 15px;
-      transition: opacity 0.2s, transform 0.1s;
-    }
-    .btn:hover { opacity: 0.88; }
-    .btn:active { transform: scale(0.98); }
-    .btn.primary { background: #ff2424; color: #ffffff; }
-    .btn.secondary {
+      font-size: 14px;
       background: #ffffff;
+      color: #5d5e63;
+      border: 1px solid #e7e7ef;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .link-btn:hover {
+      border-color: #1a1c1f;
       color: #1a1c1f;
-      border: 1px solid #e0e0e8;
     }
     .footer {
-      font-size: 13px;
+      font-size: 12px;
       color: #8e9099;
       padding-top: 24px;
-      border-top: 1px solid #e0e0e8;
+      border-top: 1px solid #e7e7ef;
     }
-    .footer a { color: #8e9099; text-decoration: underline; }
   </style>
 </head>
 <body>
   <main class="container">
-    <h1 class="logo">ShutTimer</h1>
-    <p class="tagline">Your Focus Timer</p>
-    <p class="description">
-      집중이 필요한 순간, ShutTimer와 함께하세요.<br>
-      Stay focused and productive with ShutTimer.
+    <h1 class="brand">AtticLab</h1>
+    <p class="tagline">작은 다락방 연구소 · A small indie studio from the attic</p>
+
+    <p class="intro">
+      조용하고 집중된 생산성 앱을 만드는 작은 스튜디오입니다.<br>
+      We craft quiet, focused productivity apps.
     </p>
+
+    <section class="apps-section">
+      <h2 class="section-title">Our Apps</h2>
+      <a class="app-card" href="https://apps.apple.com/app/id6761991860">
+        <div class="app-icon">S</div>
+        <div class="app-info">
+          <div class="app-name">ShutTimer</div>
+          <div class="app-desc">Your Focus Timer · 집중 타이머</div>
+        </div>
+        <div class="app-arrow">→</div>
+      </a>
+    </section>
+
     <nav class="links">
-      <a class="btn primary" href="https://apps.apple.com/app/id6761991860">App Store에서 다운로드</a>
-      <a class="btn secondary" href="https://charm-ski-ed5.notion.site/Privacy-Policy-for-ShutTimer-33de3454b01080dbb7">개인정보 처리방침 / Privacy Policy</a>
-      <a class="btn secondary" href="mailto:hwan4870a@gmail.com">지원 문의 / Support</a>
+      <a class="link-btn" href="https://charm-ski-ed5.notion.site/Privacy-Policy-for-ShutTimer-33de3454b01080dbb7">개인정보 처리방침 / Privacy Policy</a>
+      <a class="link-btn" href="mailto:hwan4870a@gmail.com">문의 / Contact</a>
     </nav>
+
     <footer class="footer">
-      © 2026 TLabs. All rights reserved.
+      © 2026 AtticLab. All rights reserved.
     </footer>
   </main>
 </body>
