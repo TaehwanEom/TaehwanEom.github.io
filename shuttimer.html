@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>ShutTimer — 일어날 수밖에 없게 만드는 알람</title>
+<meta name="description" content="사진을 찍어야 꺼지는 알람과, 해제 직후 자동으로 시작되는 루틴 타이머. 시간 관리가 어려운 모든 사람을 위한 알람 앱." />
+<link rel="icon" type="image/png" href="assets/shuttimer-icon.png" />
+<link rel="apple-touch-icon" href="assets/shuttimer-icon.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f6f6f7;
+    --bg-elev: #ffffff;
+    --fg: #0a0a0b;
+    --fg-soft: #4a4a52;
+    --fg-mute: #8a8a93;
+    --line: #e9e9ec;
+    --line-strong: #d6d6da;
+    --red: #ff2d3d;
+    --red-deep: #d11424;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 1px 1px rgba(0,0,0,0.03);
+    --shadow-md: 0 8px 24px -8px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.04);
+    --shadow-lg: 0 30px 60px -20px rgba(0,0,0,0.18), 0 10px 20px -8px rgba(0,0,0,0.08);
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-xl: 32px;
+    --container: 1160px;
+    --ease: cubic-bezier(.2,.7,.2,1);
+  }
+  [data-theme="dark"] {
+    --bg: #0a0a0b;
+    --bg-soft: #131316;
+    --bg-elev: #17171b;
+    --fg: #f7f7f8;
+    --fg-soft: #c2c2cb;
+    --fg-mute: #7a7a85;
+    --line: #232328;
+    --line-strong: #2e2e35;
+    --red: #ff3a48;
+    --red-deep: #ff5763;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+    --shadow-md: 0 12px 28px -10px rgba(0,0,0,0.6), 0 2px 6px rgba(0,0,0,0.4);
+    --shadow-lg: 0 30px 80px -20px rgba(0,0,0,0.8), 0 10px 20px -8px rgba(0,0,0,0.5);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Pretendard Variable', Pretendard, 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    transition: background-color .25s var(--ease), color .25s var(--ease);
+  }
+  :lang(en), [lang="en"] {
+    font-family: 'Inter', 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  img, svg { display: block; max-width: 100%; }
+
+  .container {
+    width: 100%;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- NAV ---------- */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid transparent;
+    transition: border-color .2s var(--ease);
+  }
+  .nav.scrolled { border-bottom-color: var(--line); }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    font-size: 17px;
+  }
+  .brand-mark {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .brand-mark img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .nav-actions { display: flex; align-items: center; gap: 4px; }
+  .pill-toggle {
+    display: inline-flex;
+    align-items: center;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 3px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .pill-toggle button {
+    padding: 6px 12px;
+    border-radius: 999px;
+    color: var(--fg-mute);
+    transition: all .18s var(--ease);
+  }
+  .pill-toggle button.active {
+    background: var(--fg);
+    color: var(--bg);
+  }
+  .icon-btn {
+    width: 38px; height: 38px;
+    border-radius: 999px;
+    display: grid; place-items: center;
+    color: var(--fg-soft);
+    transition: background .15s var(--ease);
+  }
+  .icon-btn:hover { background: var(--bg-soft); }
+  .icon-btn svg { width: 18px; height: 18px; }
+
+  /* ---------- BUTTONS ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: transform .15s var(--ease), background .15s var(--ease), box-shadow .2s var(--ease);
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+  .btn-primary { background: var(--fg); color: var(--bg); box-shadow: var(--shadow-md); }
+  .btn-primary:hover { box-shadow: var(--shadow-lg); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--fg);
+    border-color: var(--line-strong);
+  }
+  .btn-ghost:hover { background: var(--bg-soft); }
+  .btn svg { width: 18px; height: 18px; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative;
+    padding: 64px 0 40px;
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px 6px 8px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--bg-soft);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--fg-soft);
+    margin-bottom: 24px;
+  }
+  .eyebrow .dot {
+    width: 8px; height: 8px;
+    background: var(--red);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--red) 18%, transparent);
+    animation: pulse 1.8s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--red) 18%, transparent); }
+    50% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--red) 6%, transparent); }
+  }
+
+  h1.headline {
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    margin: 0 0 22px;
+    text-wrap: balance;
+  }
+  .headline .red { color: var(--red); }
+  .headline .mute {
+    color: var(--fg-mute);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+  .headline .strike {
+    position: relative;
+    display: inline-block;
+    color: var(--fg-mute);
+  }
+  .headline .strike::after {
+    content: "";
+    position: absolute;
+    left: -2%; right: -2%;
+    top: 56%;
+    height: 5px;
+    background: var(--red);
+    border-radius: 4px;
+    transform: rotate(-3deg);
+  }
+  .sub {
+    font-size: clamp(16px, 1.6vw, 19px);
+    color: var(--fg-soft);
+    line-height: 1.55;
+    margin: 0 0 32px;
+    max-width: 520px;
+    text-wrap: pretty;
+  }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-meta {
+    margin-top: 28px;
+    display: flex;
+    gap: 24px;
+    color: var(--fg-mute);
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+  .hero-meta span { display: inline-flex; gap: 6px; align-items: center; }
+  .hero-meta svg { width: 14px; height: 14px; }
+
+  /* ---------- PHONE MOCK ---------- */
+  .phone-stage {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    max-width: 520px;
+    margin-left: auto;
+  }
+  .phone-stage::before {
+    content: "";
+    position: absolute;
+    inset: 8% 12%;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--red) 12%, transparent), transparent 70%);
+    filter: blur(40px);
+    z-index: 0;
+  }
+  .phone {
+    position: relative;
+    width: min(320px, 70%);
+    aspect-ratio: 9 / 19.5;
+    background: var(--fg);
+    border-radius: 46px;
+    padding: 10px;
+    box-shadow: var(--shadow-lg), inset 0 0 0 1px color-mix(in srgb, var(--fg) 50%, #555);
+    z-index: 1;
+  }
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    background: #0a0a0b;
+    border-radius: 36px;
+    overflow: hidden;
+    position: relative;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+  }
+  .phone-shot {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+  [data-theme="light"] .phone-shot-dark { display: none; }
+  [data-theme="dark"] .phone-shot-light { display: none; }
+  .feature-art.feature-art-dial {
+    padding: 12px;
+  }
+  [data-theme="dark"] .feature-art.feature-art-dial {
+    background: #0a0a0b;
+    border-color: #0a0a0b;
+  }
+  [data-theme="light"] .feature-art.feature-art-dial {
+    background: #f4f4f7;
+    border-color: #f4f4f7;
+  }
+  .dial-shot {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  [data-theme="light"] .dial-shot-dark { display: none; }
+  [data-theme="dark"] .dial-shot-light { display: none; }
+  .notch {
+    position: absolute;
+    top: 8px; left: 50%;
+    transform: translateX(-50%);
+    width: 88px; height: 26px;
+    background: #000;
+    border-radius: 999px;
+    z-index: 3;
+  }
+  .status-bar {
+    padding: 14px 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 600;
+    z-index: 2;
+  }
+  .status-icons { display: flex; gap: 5px; align-items: center; opacity: .9; }
+  .status-icons span {
+    width: 4px; height: 4px; border-radius: 50%; background: #fff;
+  }
+  .status-icons .battery {
+    width: 22px; height: 11px; border: 1px solid #fff; border-radius: 3px;
+    position: relative; padding: 1px; background: transparent;
+  }
+  .status-icons .battery::after {
+    content: ""; display: block; height: 100%; width: 75%; background: #fff; border-radius: 1px;
+  }
+
+  .phone-content {
+    flex: 1;
+    padding: 36px 22px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .alarm-label {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #ff5763;
+    font-weight: 700;
+    margin-top: 12px;
+  }
+  .alarm-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #d8d8e0;
+    margin-top: 4px;
+  }
+
+  /* 60-min dial */
+  .dial {
+    width: 78%;
+    aspect-ratio: 1;
+    position: relative;
+    margin: 12px 0;
+  }
+  .dial svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .dial-time {
+    position: absolute;
+    inset: 0;
+    display: grid; place-items: center;
+    transform: rotate(0deg);
+    font-variant-numeric: tabular-nums;
+  }
+  .dial-time .t {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+  }
+  .dial-time .m {
+    font-size: 11px;
+    color: #8a8a93;
+    letter-spacing: 0.2em;
+    margin-top: 2px;
+    text-transform: uppercase;
+  }
+
+  .phone-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .phone-btn {
+    width: 100%;
+    text-align: center;
+    padding: 13px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .phone-btn.primary { background: var(--red); color: #fff; }
+  .phone-btn.ghost { background: rgba(255,255,255,0.08); color: #d8d8e0; }
+  .home-indicator {
+    width: 110px; height: 4px;
+    background: #fff; opacity: .4;
+    border-radius: 4px;
+    margin: 0 auto 6px;
+  }
+
+  /* floating chips around phone */
+  .float-chip {
+    position: absolute;
+    background: var(--bg-elev);
+    border: 1px solid var(--line-strong);
+    box-shadow: var(--shadow-lg);
+    border-radius: 14px;
+    padding: 11px 16px 11px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    z-index: 2;
+    animation: float 6s ease-in-out infinite;
+  }
+  .float-chip .ic {
+    width: 32px; height: 32px;
+    border-radius: 9px;
+    display: grid; place-items: center;
+    background: var(--red);
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .float-chip .ic svg { width: 16px; height: 16px; }
+  .float-chip .chip-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--fg);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .float-chip .chip-sub {
+    font-size: 12px;
+    color: var(--fg-soft);
+    font-weight: 500;
+    margin-top: 2px;
+    line-height: 1.2;
+  }
+  .float-chip.a { top: 12%; left: -2%; animation-delay: -2s; }
+  .float-chip.b { bottom: 18%; right: -4%; animation-delay: -4s; }
+  .float-chip.c { top: 48%; right: -10%; animation-delay: -1s; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section { padding: 96px 0; }
+  .sec-head {
+    max-width: 720px;
+    margin: 0 auto 56px;
+    text-align: center;
+  }
+  .sec-tag {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 14px;
+  }
+  .sec-title {
+    font-size: clamp(30px, 4vw, 46px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin: 0 0 14px;
+    text-wrap: balance;
+  }
+  .sec-sub {
+    color: var(--fg-soft);
+    font-size: 17px;
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  /* ---------- FEATURES ---------- */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .feature {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+    transition: transform .25s var(--ease), border-color .25s var(--ease);
+  }
+  .feature:hover {
+    transform: translateY(-2px);
+    border-color: var(--line-strong);
+  }
+  .feature-art {
+    aspect-ratio: 1 / 1;
+    border-radius: var(--radius-md);
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .feature-num { display: none; }
+  .feature h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+  .feature p {
+    font-size: 15px;
+    color: var(--fg-soft);
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  /* Feature 1: 60-min dial */
+  .art-dial {
+    width: 70%;
+    aspect-ratio: 1;
+    position: relative;
+  }
+  .art-dial svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .art-dial .label {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    font-weight: 700; font-size: 24px;
+    letter-spacing: -0.03em;
+  }
+  .art-dial .label small {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--fg-mute);
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  /* Feature 2: camera */
+  .art-camera {
+    width: 100%; height: 100%;
+    background:
+      repeating-linear-gradient(45deg, transparent 0 14px, color-mix(in srgb, var(--fg) 4%, transparent) 14px 15px),
+      var(--bg-elev);
+    display: grid; place-items: center;
+    position: relative;
+  }
+  .cam-icon {
+    width: 128px; height: 100px;
+    background: var(--fg);
+    border-radius: 22px;
+    position: relative;
+  }
+  .cam-icon::before {
+    content: "";
+    position: absolute;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--bg);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: inset 0 0 0 7px var(--fg);
+  }
+  .cam-icon::after {
+    content: "";
+    position: absolute;
+    width: 12px; height: 12px;
+    background: var(--red);
+    border-radius: 50%;
+    top: 14px; right: 14px;
+  }
+  .cam-flash {
+    position: absolute;
+    width: 16px; height: 16px;
+    background: var(--red);
+    border-radius: 50%;
+    top: 24px; left: 24px;
+    box-shadow: 0 0 40px var(--red);
+    animation: flash 2s infinite;
+  }
+  @keyframes flash {
+    0%, 80%, 100% { opacity: 0; }
+    40% { opacity: 1; }
+  }
+
+  /* Feature 3: routine chain */
+  .art-chain {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    width: 60%;
+    max-width: 200px;
+  }
+  .chain-pill {
+    background: var(--fg);
+    color: var(--bg);
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .chain-pill.alt { background: var(--bg-soft); color: var(--fg); border: 1px solid var(--line-strong); }
+  .chain-arrow {
+    color: var(--red);
+    font-weight: 700;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  /* ---------- ROUTINE TIMELINE ---------- */
+  .routine-bg { background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .timeline {
+    position: relative;
+    margin-top: 24px;
+  }
+  .timeline-track {
+    position: absolute;
+    left: 0; right: 0;
+    top: 30px;
+    height: 2px;
+    background: var(--line-strong);
+    z-index: 0;
+  }
+  .timeline-track::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 0 0;
+    background: linear-gradient(90deg, var(--red), var(--red) 60%, transparent);
+    width: 60%;
+  }
+  .timeline-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .tl-step { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+  .tl-dot {
+    width: 60px; height: 60px;
+    background: var(--bg-elev);
+    border: 2px solid var(--line-strong);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 22px;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+  }
+  .tl-step.active .tl-dot {
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--red) 14%, transparent);
+  }
+  .tl-step.done .tl-dot {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+  .tl-time {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+  }
+  .tl-label {
+    font-size: 13px;
+    color: var(--fg-soft);
+  }
+  .tl-dur {
+    font-size: 11px;
+    color: var(--fg-mute);
+    font-weight: 600;
+  }
+
+  /* ---------- DISMISS METHODS ---------- */
+  .dismiss-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .dismiss-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 24px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: all .25s var(--ease);
+  }
+  .dismiss-card h3 { font-size: 19px; }
+  .dismiss-illu { height: 88px; display: grid; place-items: center; }
+  .dismiss-illu svg { width: 64px; height: 64px; }
+  .dismiss-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .dismiss-card.featured { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  .dismiss-card.featured .dismiss-num { background: var(--red); color: #fff; }
+  .dismiss-card.featured .dismiss-sub { color: color-mix(in srgb, var(--bg) 70%, transparent); }
+  .dismiss-num {
+    width: 36px; height: 36px;
+    background: var(--bg-soft);
+    border-radius: 10px;
+    display: grid; place-items: center;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .dismiss-illu-small {
+    display: grid; place-items: center;
+  }
+  .dismiss-card h3 {
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .dismiss-sub {
+    margin: 0;
+    color: var(--fg-soft);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .dismiss-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    align-self: flex-start;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: color-mix(in srgb, var(--red) 14%, transparent);
+    color: var(--red);
+  }
+  .dismiss-card.featured .dismiss-tag {
+    background: var(--red);
+    color: #fff;
+  }
+
+  /* shake animation */
+  @keyframes shake {
+    0%, 100% { transform: translateX(0) rotate(0); }
+    20% { transform: translateX(-3px) rotate(-2deg); }
+    40% { transform: translateX(3px) rotate(2deg); }
+    60% { transform: translateX(-2px) rotate(-1deg); }
+    80% { transform: translateX(2px) rotate(1deg); }
+  }
+  .shake-illu { animation: shake 1.4s infinite; }
+
+  /* ---------- FAQ ---------- */
+  .faq-list {
+    max-width: 760px;
+    margin: 0 auto;
+    border-top: 1px solid var(--line);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+  }
+  .faq-q {
+    width: 100%;
+    text-align: left;
+    padding: 22px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    transition: color .15s var(--ease);
+  }
+  .faq-q:hover { color: var(--red); }
+  .faq-toggle {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--bg-soft);
+    flex-shrink: 0;
+    display: grid; place-items: center;
+    position: relative;
+    transition: background .15s var(--ease);
+  }
+  .faq-toggle::before, .faq-toggle::after {
+    content: "";
+    position: absolute;
+    background: var(--fg);
+    transition: transform .25s var(--ease);
+  }
+  .faq-toggle::before { width: 12px; height: 2px; }
+  .faq-toggle::after { width: 2px; height: 12px; }
+  .faq-item.open .faq-toggle { background: var(--red); }
+  .faq-item.open .faq-toggle::before,
+  .faq-item.open .faq-toggle::after { background: #fff; }
+  .faq-item.open .faq-toggle::after { transform: scaleY(0); }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s var(--ease);
+    color: var(--fg-soft);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  .faq-a-inner { padding: 0 8px 22px; max-width: 640px; }
+
+  /* ---------- CTA BANNER ---------- */
+  .cta {
+    background: var(--fg);
+    color: var(--bg);
+    border-radius: var(--radius-xl);
+    padding: 64px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta::before {
+    content: "";
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--red) 38%, transparent), transparent 70%);
+    top: -300px; right: -200px;
+    pointer-events: none;
+  }
+  .cta h2 {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin: 0 0 16px;
+    text-wrap: balance;
+    position: relative;
+  }
+  .cta p {
+    color: color-mix(in srgb, var(--bg) 70%, transparent);
+    font-size: 17px;
+    margin: 0 0 28px;
+    position: relative;
+  }
+  .cta .btn-primary {
+    background: var(--bg);
+    color: var(--fg);
+    position: relative;
+  }
+  .cta .btn-ghost {
+    color: var(--bg);
+    border-color: color-mix(in srgb, var(--bg) 30%, transparent);
+    position: relative;
+  }
+  .cta .btn-ghost:hover { background: color-mix(in srgb, var(--bg) 10%, transparent); }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    padding: 56px 0 40px;
+    border-top: 1px solid var(--line);
+  }
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .foot-left { display: flex; align-items: center; gap: 14px; }
+  .foot-co {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .foot-co small {
+    display: block;
+    font-weight: 500;
+    color: var(--fg-mute);
+    font-size: 12px;
+    letter-spacing: 0;
+  }
+  .foot-links {
+    display: flex;
+    gap: 24px;
+    font-size: 14px;
+    color: var(--fg-soft);
+  }
+  .foot-links a:hover { color: var(--fg); }
+  .foot-bottom {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--fg-mute);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* App store badge */
+  .badge-appstore {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--fg);
+    color: var(--bg);
+    padding: 12px 20px 12px 16px;
+    border-radius: 14px;
+    transition: transform .15s var(--ease);
+  }
+  .badge-appstore:hover { transform: translateY(-1px); }
+  .badge-appstore svg { width: 28px; height: 28px; }
+  .badge-appstore .text { display: flex; flex-direction: column; line-height: 1.1; text-align: left; }
+  .badge-appstore .text small { font-size: 11px; opacity: .8; font-weight: 500; }
+  .badge-appstore .text strong { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+
+  /* ---------- I18N ---------- */
+  [data-lang="en"] .ko { display: none; }
+  [data-lang="ko"] .en { display: none; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 1100px) {
+    .dismiss-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 960px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .phone-stage { margin: 0 auto; }
+    .features { grid-template-columns: 1fr; }
+    .dismiss-grid { grid-template-columns: repeat(2, 1fr); }
+    .timeline-row { grid-template-columns: 1fr; gap: 28px; }
+    .timeline-track { display: none; }
+    .tl-step { flex-direction: row; text-align: left; gap: 18px; }
+    .tl-dot { width: 48px; height: 48px; font-size: 18px; flex-shrink: 0; }
+    .tl-text { display: flex; flex-direction: column; gap: 2px; }
+    section { padding: 72px 0; }
+    .cta { padding: 48px 24px; }
+  }
+  @media (max-width: 560px) {
+    .hero { padding: 32px 0; }
+    .nav-actions .pill-toggle { font-size: 12px; }
+    .float-chip.c { display: none; }
+    .float-chip.a { left: 0; }
+    .float-chip.b { right: 0; }
+    .foot { flex-direction: column; align-items: flex-start; }
+    .dismiss-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#" class="brand" aria-label="ShutTimer">
+      <span class="brand-mark" aria-hidden="true">
+        <img src="assets/shuttimer-icon.png" alt="" />
+      </span>
+      ShutTimer
+    </a>
+    <div class="nav-actions">
+      <div class="pill-toggle" role="tablist" aria-label="Language">
+        <button data-set-lang="ko" role="tab">KO</button>
+        <button data-set-lang="en" class="active" role="tab">EN</button>
+      </div>
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">
+        <span class="dot"></span>
+        <span class="ko">iOS에서 만나보세요</span>
+        <span class="en">Now on the App Store</span>
+      </span>
+
+      <h1 class="headline">
+        <span class="ko">
+          알람은 <span class="mute">끄는 게 아니라</span> <span class="red">일어나는 것</span>
+        </span>
+        <span class="en">
+          An alarm <span class="mute">isn't for turning off &mdash;</span> <span class="red">it's for waking up</span>
+        </span>
+      </h1>
+
+      <p class="sub">
+        <span class="ko">사진을 찍어야 꺼지는 알람과, 해제 직후 자동으로 시작되는 루틴 타이머. ShutTimer는 일어날 수밖에 없는 환경을 만듭니다.</span>
+        <span class="en">A camera-mission alarm and a routine timer that fires the moment you dismiss it. ShutTimer makes getting up the only option.</span>
+      </p>
+
+      <div class="hero-cta">
+        <a class="badge-appstore" href="https://apps.apple.com/us/app/shuttimer/id6761991860" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M16.365 1.43c0 1.14-.39 2.21-1.16 3.06-.78.87-2.06 1.55-3.13 1.46-.13-1.13.39-2.32 1.13-3.07.86-.86 2.27-1.52 3.16-1.45zM20.78 17.42c-.55 1.27-.81 1.84-1.52 2.96-.99 1.55-2.39 3.48-4.12 3.5-1.54.02-1.93-1.01-4.02-1-2.09.01-2.52 1.02-4.06 1-1.73-.02-3.06-1.77-4.05-3.32C.16 16.13-.16 11.07 1.6 8.4c1.26-1.91 3.24-3.03 5.11-3.03 1.9 0 3.1 1.04 4.67 1.04 1.53 0 2.46-1.05 4.66-1.05 1.67 0 3.43.91 4.69 2.48-4.12 2.26-3.45 8.15.05 9.58z"/>
+          </svg>
+          <span class="text">
+            <small><span class="ko">App Store에서 받기</span><span class="en">Download on the</span></small>
+            <strong>App Store</strong>
+          </span>
+        </a>
+        <a href="#features" class="btn btn-ghost">
+          <span class="ko">기능 둘러보기</span>
+          <span class="en">See features</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="hero-meta">
+        <span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
+          <span class="ko">광고 없음</span><span class="en">No ads</span>
+        </span>
+        <span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span class="ko">사진은 기기에만 저장</span><span class="en">Photos stay on device</span>
+        </span>
+        <span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4.5L6 21l1.5-7.5L2 9h7z"/></svg>
+          <span class="ko">아이부터 어른까지</span><span class="en">Kids to adults</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="phone-stage">
+      <div class="phone" aria-hidden="true">
+        <div class="phone-screen">
+          <img src="assets/shuttimer-hero.png" alt="ShutTimer app screen" class="phone-shot phone-shot-dark" />
+          <img src="assets/shuttimer-hero-light.png" alt="" class="phone-shot phone-shot-light" />
+        </div>
+      </div>
+
+      <div class="float-chip a">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M5 7h2l2-3h6l2 3h2a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2z"/></svg>
+        </div>
+        <div>
+          <div class="chip-title"><span class="ko">사진 미션</span><span class="en">Photo mission</span></div>
+          <div class="chip-sub"><span class="ko">세면대를 찍어주세요</span><span class="en">Snap your sink</span></div>
+        </div>
+      </div>
+
+      <div class="float-chip b">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </div>
+        <div>
+          <div class="chip-title"><span class="ko">루틴 시작</span><span class="en">Routine on</span></div>
+          <div class="chip-sub"><span class="ko">양치 · 옷 입기 · 가방</span><span class="en">Brush · Dress · Pack</span></div>
+        </div>
+      </div>
+
+      <div class="float-chip c">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M12 1v2"/></svg></div>
+        <div class="chip-title"><span class="ko">60분 다이얼</span><span class="en">60-min dial</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-tag"><span class="ko">핵심 기능</span><span class="en">Core features</span></span>
+      <h2 class="sec-title">
+        <span class="ko">단순한 알람이 아닌, 시작 의식</span>
+        <span class="en">Not just an alarm — a starting ritual</span>
+      </h2>
+      <p class="sec-sub">
+        <span class="ko">한 손에 들어오는 도구 세 가지로, 아침은 끝까지 마무리됩니다.</span>
+        <span class="en">Three tools, one ritual. From the first ring to the last task.</span>
+      </p>
+    </div>
+
+    <div class="features">
+      <article class="feature">
+        <div class="feature-art feature-art-dial">
+          <img src="assets/shuttimer-dial.png" alt="60-minute dial" class="dial-shot dial-shot-dark" />
+          <img src="assets/shuttimer-dial-light.png" alt="" class="dial-shot dial-shot-light" />
+        </div>
+        <h3><span class="ko">60분 다이얼</span><span class="en">60-minute dial</span></h3>
+        <p>
+          <span class="ko">손가락으로 돌려서 1초 만에 시간을 설정. 빨간 호가 남은 시간을 직관적으로 보여줍니다.</span>
+          <span class="en">Spin to set time in one second. The red arc shows what's left at a glance.</span>
+        </p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-art">
+          <div class="art-camera">
+            <div class="cam-flash"></div>
+            <div class="cam-icon"></div>
+          </div>
+        </div>
+        <h3><span class="ko">사진 미션 알람</span><span class="en">Photo-mission alarm</span></h3>
+        <p>
+          <span class="ko">미리 정해둔 장소 — 세면대, 창문, 주방 — 의 사진을 찍어야만 알람이 꺼집니다. 침대 밖으로 나오게 만드는 가장 확실한 방법.</span>
+          <span class="en">Aim your camera at a pre-set spot — sink, window, kitchen — to dismiss. The surest way out of bed.</span>
+        </p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-art">
+          <div class="art-chain">
+            <span class="chain-pill"><span class="ko">알람</span><span class="en">Alarm</span></span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-pill alt"><span class="ko">양치</span><span class="en">Brush</span></span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-pill alt"><span class="ko">옷</span><span class="en">Dress</span></span>
+          </div>
+        </div>
+        <h3><span class="ko">루틴 자동 연결</span><span class="en">Auto-chained routine</span></h3>
+        <p>
+          <span class="ko">알람이 꺼진 직후, 미리 만들어둔 루틴 타이머가 자동 시작. 다음 할 일을 고민할 필요가 없습니다.</span>
+          <span class="en">The moment the alarm dies, your routine starts itself. No deciding what's next.</span>
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ROUTINE TIMELINE -->
+<section class="routine-bg">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-tag"><span class="ko">사용 시나리오</span><span class="en">A morning, mapped</span></span>
+      <h2 class="sec-title">
+        <span class="ko">07:00부터 07:45까지, 멈춤 없이</span>
+        <span class="en">From 07:00 to 07:45 — no stalls.</span>
+      </h2>
+      <p class="sec-sub">
+        <span class="ko">아침 한 번을 잘 보내는 것이 하루를 결정합니다. 한 단계가 끝나면 다음 단계가 자동으로 이어집니다.</span>
+        <span class="en">A good morning sets the day. As one step ends, the next begins on its own.</span>
+      </p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-track"></div>
+      <div class="timeline-row">
+        <div class="tl-step done">
+          <div class="tl-dot">⏰</div>
+          <div class="tl-text">
+            <div class="tl-time">07:00</div>
+            <div class="tl-label"><span class="ko">기상</span><span class="en">Wake</span></div>
+            <div class="tl-dur"><span class="ko">사진 미션</span><span class="en">Photo mission</span></div>
+          </div>
+        </div>
+        <div class="tl-step done">
+          <div class="tl-dot">🪥</div>
+          <div class="tl-text">
+            <div class="tl-time">07:05</div>
+            <div class="tl-label"><span class="ko">양치 · 세수</span><span class="en">Brush · Wash</span></div>
+            <div class="tl-dur">5 min</div>
+          </div>
+        </div>
+        <div class="tl-step active">
+          <div class="tl-dot">👕</div>
+          <div class="tl-text">
+            <div class="tl-time">07:15</div>
+            <div class="tl-label"><span class="ko">옷 입기</span><span class="en">Get dressed</span></div>
+            <div class="tl-dur">10 min</div>
+          </div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot">🥣</div>
+          <div class="tl-text">
+            <div class="tl-time">07:25</div>
+            <div class="tl-label"><span class="ko">아침 식사</span><span class="en">Breakfast</span></div>
+            <div class="tl-dur">15 min</div>
+          </div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot">🎒</div>
+          <div class="tl-text">
+            <div class="tl-time">07:40</div>
+            <div class="tl-label"><span class="ko">가방 · 출발</span><span class="en">Pack · Go</span></div>
+            <div class="tl-dur">5 min</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISMISS METHODS -->
+<section>
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-tag"><span class="ko">알람 해제 방식</span><span class="en">Three ways to dismiss</span></span>
+      <h2 class="sec-title">
+        <span class="ko">오늘의 나에게 맞는 강도로</span>
+        <span class="en">As gentle, or as strict, as today needs</span>
+      </h2>
+      <p class="sec-sub">
+        <span class="ko">컨디션과 습관에 따라 세 가지 강도 중에서 선택할 수 있어요.</span>
+        <span class="en">Pick the difficulty that matches your mood and habit.</span>
+      </p>
+    </div>
+
+    <div class="dismiss-grid">
+      <div class="dismiss-card">
+        <div class="dismiss-num">01</div>
+        <div class="dismiss-illu">
+          <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="40" cy="40" r="20"/>
+            <circle cx="40" cy="40" r="4" fill="currentColor"/>
+            <path d="M40 20v-6M40 66v-6M20 40h-6M66 40h-6"/>
+          </svg>
+        </div>
+        <span class="dismiss-tag"><span class="ko">가장 쉬움</span><span class="en">Easiest</span></span>
+        <h3><span class="ko">탭</span><span class="en">Tap</span></h3>
+        <p class="dismiss-sub">
+          <span class="ko">한 번 탭하면 즉시 해제. 일찍 깬 날, 잠깐의 낮잠 끝에 쓰기 좋아요.</span>
+          <span class="en">One tap, done. For early risers and quick power naps.</span>
+        </p>
+      </div>
+
+      <div class="dismiss-card">
+        <div class="dismiss-num">02</div>
+        <div class="dismiss-illu shake-illu">
+          <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="26" y="14" width="28" height="52" rx="5"/>
+            <line x1="36" y1="60" x2="44" y2="60"/>
+            <path d="M16 30c-3 3-3 7 0 10M64 30c3 3 3 7 0 10M10 26c-5 5-5 13 0 18M70 26c5 5 5 13 0 18"/>
+          </svg>
+        </div>
+        <span class="dismiss-tag"><span class="ko">중간</span><span class="en">Medium</span></span>
+        <h3><span class="ko">흔들기</span><span class="en">Shake</span></h3>
+        <p class="dismiss-sub">
+          <span class="ko">손에 쥐고 흔들어야 꺼집니다. 손목이 깨면 정신도 깨요.</span>
+          <span class="en">Grab and shake. Waking your wrist wakes your mind.</span>
+        </p>
+      </div>
+
+      <div class="dismiss-card">
+        <div class="dismiss-num">03</div>
+        <div class="dismiss-illu">
+          <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 22h10l5-7h22l5 7h10a3 3 0 013 3v33a3 3 0 01-3 3H14a3 3 0 01-3-3V25a3 3 0 013-3z"/>
+            <circle cx="40" cy="42" r="11"/>
+            <circle cx="40" cy="42" r="5" fill="currentColor"/>
+            <circle cx="58" cy="29" r="1.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <span class="dismiss-tag"><span class="ko">가장 확실</span><span class="en">Toughest</span></span>
+        <h3><span class="ko">사진 미션</span><span class="en">Photo mission</span></h3>
+        <p class="dismiss-sub">
+          <span class="ko">미리 정한 장소를 카메라로 비춰야 해제. 침대 밖으로 나오게 만드는 가장 강력한 방법.</span>
+          <span class="en">Point your camera at a pre-set spot to dismiss. The hardest way to stay in bed.</span>
+        </p>
+      </div>
+
+      <div class="dismiss-card">
+        <div class="dismiss-num">04</div>
+        <div class="dismiss-illu">
+          <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="12" y="12" width="56" height="56" rx="8"/>
+            <path d="M22 30h16M30 22v16"/>
+            <path d="M44 30h14"/>
+            <path d="M22 52h16"/>
+            <path d="M48 48l10 10M58 48l-10 10"/>
+          </svg>
+        </div>
+        <span class="dismiss-tag"><span class="ko">두뇌 깨우기</span><span class="en">Brain wake-up</span></span>
+        <h3><span class="ko">산수 풀기</span><span class="en">Math problem</span></h3>
+        <p class="dismiss-sub">
+          <span class="ko">간단한 사칙연산을 풀어야 알람이 꺼집니다. 잠든 머리를 가장 빨리 깨우는 방법.</span>
+          <span class="en">Solve a quick arithmetic problem to dismiss. The fastest way to boot a sleepy brain.</span>
+        </p>
+      </div>
+
+      <div class="dismiss-card">
+        <div class="dismiss-num">05</div>
+        <div class="dismiss-illu">
+          <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 18h44a4 4 0 014 4v36a4 4 0 01-4 4H14a4 4 0 01-4-4V22a4 4 0 014-4z"/>
+            <path d="M20 30h32M20 40h28M20 50h20"/>
+            <path d="M56 50l8-8 4 4-8 8z"/>
+          </svg>
+        </div>
+        <span class="dismiss-tag"><span class="ko">집중 모드</span><span class="en">Focus mode</span></span>
+        <h3><span class="ko">받아쓰기</span><span class="en">Dictation</span></h3>
+        <p class="dismiss-sub">
+          <span class="ko">화면에 나타나는 문장을 그대로 따라 입력해야 해제. 단어를 읽고 쓰는 동안 뇌가 활성화됩니다.</span>
+          <span class="en">Retype the sentence shown on screen to dismiss. Reading and writing wake the mind fully.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-tag">FAQ</span>
+      <h2 class="sec-title">
+        <span class="ko">자주 묻는 질문</span>
+        <span class="en">Common questions</span>
+      </h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">
+          <span><span class="ko">사진 미션은 어떻게 인식하나요?</span><span class="en">How does the photo mission work?</span></span>
+          <span class="faq-toggle"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          <span class="ko">처음에 "기준 사진"을 한 장 등록해 두면, 알람이 울릴 때 비슷한 장면을 카메라로 비춰야 해제됩니다. 너무 어둡거나 다른 장소를 비추면 인식되지 않아요.</span>
+          <span class="en">You first register a reference photo. When the alarm rings, you must aim your camera at a similar scene to dismiss it. Too dark or pointed elsewhere? No dismiss.</span>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span><span class="ko">사진은 어디에 저장되나요?</span><span class="en">Where are the photos stored?</span></span>
+          <span class="faq-toggle"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          <span class="ko">모든 사진은 사용자의 기기 안에만 저장되며, 외부 서버로 전송되지 않습니다. 인식이 끝나면 자동으로 삭제하도록 설정할 수도 있어요.</span>
+          <span class="en">All photos stay on your device — nothing is sent to a server. You can also set them to auto-delete after each match.</span>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span><span class="ko">아이도 사용할 수 있나요?</span><span class="en">Can kids use it?</span></span>
+          <span class="faq-toggle"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          <span class="ko">네. 부모가 루틴과 해제 방식을 미리 설정해두면, 아이는 사진 한 장과 다음 단계만 따라가면 됩니다. 등교 준비를 잔소리 없이 끝낼 수 있어요.</span>
+          <span class="en">Yes. Parents preset the routine and dismiss method; kids just snap a photo and follow each step. School mornings, without the nagging.</span>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span><span class="ko">루틴은 몇 단계까지 만들 수 있나요?</span><span class="en">How many steps can a routine have?</span></span>
+          <span class="faq-toggle"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          <span class="ko">한 루틴 안에 최대 20단계까지 자유롭게 추가할 수 있어요. 각 단계마다 다른 알림음과 진동 패턴을 지정할 수 있습니다.</span>
+          <span class="en">Up to 20 steps per routine, each with its own sound and vibration pattern.</span>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span><span class="ko">유료 결제가 있나요?</span><span class="en">Is there a paid plan?</span></span>
+          <span class="faq-toggle"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          <span class="ko">기본 알람과 한 개의 루틴은 무료로 사용할 수 있어요. 다중 루틴, 사진 미션 무제한 등은 일회성 결제로 잠금 해제됩니다. 정기 구독은 없습니다.</span>
+          <span class="en">The basic alarm and one routine are free. Multiple routines and unlimited photo missions unlock with a one-time purchase — no subscriptions.</span>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="container">
+    <div class="cta">
+      <h2>
+        <span class="ko">내일 아침은 다르게 시작해 보세요</span>
+        <span class="en">Start tomorrow morning differently.</span>
+      </h2>
+      <p>
+        <span class="ko">15초 만에 첫 알람을 만들고, 일어날 수밖에 없는 환경을 세팅하세요.</span>
+        <span class="en">Set your first alarm in 15 seconds — and design a morning you can't sleep through.</span>
+      </p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a class="btn btn-primary" href="https://apps.apple.com/us/app/shuttimer/id6761991860" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.365 1.43c0 1.14-.39 2.21-1.16 3.06-.78.87-2.06 1.55-3.13 1.46-.13-1.13.39-2.32 1.13-3.07.86-.86 2.27-1.52 3.16-1.45zM20.78 17.42c-.55 1.27-.81 1.84-1.52 2.96-.99 1.55-2.39 3.48-4.12 3.5-1.54.02-1.93-1.01-4.02-1-2.09.01-2.52 1.02-4.06 1-1.73-.02-3.06-1.77-4.05-3.32C.16 16.13-.16 11.07 1.6 8.4c1.26-1.91 3.24-3.03 5.11-3.03 1.9 0 3.1 1.04 4.67 1.04 1.53 0 2.46-1.05 4.66-1.05 1.67 0 3.43.91 4.69 2.48-4.12 2.26-3.45 8.15.05 9.58z"/></svg>
+          <span class="ko">App Store에서 받기</span>
+          <span class="en">Download on the App Store</span>
+        </a>
+        <a class="btn btn-ghost" href="#features">
+          <span class="ko">다시 살펴보기</span>
+          <span class="en">Take another look</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="foot">
+      <div class="foot-left">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="assets/shuttimer-icon.png" alt="" />
+        </span>
+        <div class="foot-co">
+          <a href="index.html" style="text-decoration:none;color:inherit">AtticLab</a>
+          <small><span class="ko">작은 의식이 하루를 바꿉니다</span><span class="en">Small rituals, better days</span></small>
+        </div>
+      </div>
+
+      <div class="foot-links">
+        <a href="privacy/"><span class="ko">개인정보 처리방침</span><span class="en">Privacy Policy</span></a>
+        <a href="#"><span class="ko">이용약관</span><span class="en">Terms</span></a>
+        <a href="mailto:hwan4870a@gmail.com">Contact</a>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <div>© 2026 AtticLab. <span class="ko">모든 권리 보유.</span><span class="en">All rights reserved.</span></div>
+      <div><span class="ko">대한민국에서 만들었습니다 🇰🇷</span><span class="en">Crafted in Korea 🇰🇷</span></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // i18n toggle
+  const root = document.documentElement;
+  const savedLang = localStorage.getItem('shuttimer-lang') || 'en';
+  root.setAttribute('data-lang', savedLang);
+  root.setAttribute('lang', savedLang);
+  document.querySelectorAll('[data-set-lang]').forEach(btn => {
+    if (btn.dataset.setLang === savedLang) btn.classList.add('active'); else btn.classList.remove('active');
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.setLang;
+      root.setAttribute('data-lang', lang);
+      root.setAttribute('lang', lang);
+      localStorage.setItem('shuttimer-lang', lang);
+      document.querySelectorAll('[data-set-lang]').forEach(b => b.classList.toggle('active', b === btn));
+    });
+  });
+
+  // Theme toggle (auto detect + manual)
+  const themeBtn = document.getElementById('themeBtn');
+  const saved = localStorage.getItem('shuttimer-theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initial = saved || (prefersDark ? 'dark' : 'light');
+  root.setAttribute('data-theme', initial);
+  updateThemeIcon(initial);
+
+  themeBtn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('shuttimer-theme', next);
+    updateThemeIcon(next);
+  });
+
+  function updateThemeIcon(theme) {
+    const icon = document.getElementById('themeIcon');
+    if (theme === 'dark') {
+      icon.innerHTML = '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="currentColor" stroke="none"/>';
+    } else {
+      icon.innerHTML = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>';
+    }
+  }
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const btn = item.querySelector('.faq-q');
+    const ans = item.querySelector('.faq-a');
+    btn.addEventListener('click', () => {
+      const open = item.classList.toggle('open');
+      ans.style.maxHeight = open ? ans.scrollHeight + 'px' : '0px';
+    });
+  });
+
+  // Nav border on scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 8);
+  }, { passive: true });
+</script>
+
+</body>
+</html>
