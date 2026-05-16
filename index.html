@@ -479,6 +479,160 @@
   }
   .foot-left { display: flex; align-items: center; gap: 8px; }
 
+  /* ---------- CONTACT MODAL ---------- */
+  .link-btn[type="button"] {
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font: inherit;
+  }
+  .modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .modal[aria-hidden="false"] { display: flex; }
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  .modal-panel {
+    position: relative;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 520px;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    animation: modal-pop .2s var(--ease);
+  }
+  @keyframes modal-pop {
+    from { transform: translateY(8px) scale(0.98); opacity: 0; }
+    to   { transform: translateY(0) scale(1); opacity: 1; }
+  }
+  .modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .modal-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .modal-close {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    color: var(--fg-mute);
+    transition: background .15s var(--ease), color .15s var(--ease);
+  }
+  .modal-close:hover { background: var(--bg-soft); color: var(--fg); }
+  .modal-close svg { width: 18px; height: 18px; }
+  .modal-form {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .field-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fg-soft);
+  }
+  .field input[type="email"],
+  .field textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--fg);
+    background: var(--bg);
+    transition: border-color .15s var(--ease);
+  }
+  .field textarea {
+    min-height: 110px;
+    resize: vertical;
+  }
+  .field input[type="email"]:focus,
+  .field textarea:focus {
+    outline: 2px solid var(--red);
+    outline-offset: 2px;
+    border-color: var(--red);
+  }
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 4px;
+  }
+  .btn-modal {
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid transparent;
+    transition: background .15s var(--ease), filter .15s var(--ease);
+  }
+  .btn-modal-ghost {
+    background: var(--bg-soft);
+    color: var(--fg-soft);
+  }
+  .btn-modal-ghost:hover { background: var(--line); color: var(--fg); }
+  .btn-modal-primary {
+    background: var(--red);
+    color: white;
+  }
+  .btn-modal-primary:hover { filter: brightness(0.95); }
+  .btn-modal:disabled { opacity: 0.6; cursor: not-allowed; }
+  .honeypot { position: absolute; left: -9999px; }
+
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(120px);
+    background: var(--fg);
+    color: var(--bg);
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: var(--shadow-md);
+    z-index: 200;
+    opacity: 0;
+    transition: opacity .2s var(--ease), transform .25s var(--ease);
+    pointer-events: none;
+    max-width: calc(100vw - 48px);
+    text-align: center;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .toast.error { background: var(--red); color: white; }
+
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 720px) {
     .apps { grid-template-columns: 1fr; }
@@ -673,7 +827,7 @@
     </div>
 
     <div class="contact-row">
-      <a class="link-btn" href="mailto:hwan4870a@gmail.com">
+      <button class="link-btn" type="button" id="contactBtn">
         <div class="label-row">
           <span><span class="ko">문의</span><span class="en">Contact</span>
       <span class="zh">联系</span>
@@ -681,7 +835,7 @@
           <small>hwan4870a@gmail.com</small>
         </div>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-      </a>
+      </button>
       <a class="link-btn" href="privacy/">
         <div class="label-row">
           <span><span class="ko">개인정보 처리방침</span><span class="en">Privacy Policy</span>
@@ -718,6 +872,52 @@
   </div>
 </footer>
 
+<!-- CONTACT MODAL -->
+<div class="modal" id="contactModal" aria-hidden="true" role="dialog" aria-labelledby="contactModalTitle" aria-modal="true">
+  <div class="modal-backdrop" data-modal-close></div>
+  <div class="modal-panel" role="document">
+    <div class="modal-head">
+      <h3 id="contactModalTitle" class="modal-title">
+        <span class="ko">문의</span><span class="en">Contact</span><span class="zh">联系</span><span class="ja">お問い合わせ</span>
+      </h3>
+      <button class="modal-close" type="button" aria-label="Close" data-modal-close>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <form id="contactForm" class="modal-form" novalidate>
+      <input type="hidden" name="access_key" value="f207ac72-6f25-454f-a89b-3846017776f1" />
+      <input type="hidden" name="subject" value="AtticLab Contact — new message" />
+      <input type="hidden" name="from_name" value="AtticLab" />
+      <input type="checkbox" name="botcheck" class="honeypot" tabindex="-1" autocomplete="off" />
+
+      <label class="field">
+        <span class="field-label">
+          <span class="ko">이메일</span><span class="en">Email</span><span class="zh">邮箱</span><span class="ja">メール</span>
+        </span>
+        <input type="email" name="email" required autocomplete="email" id="contactEmail" />
+      </label>
+
+      <label class="field">
+        <span class="field-label">
+          <span class="ko">내용</span><span class="en">Message</span><span class="zh">内容</span><span class="ja">内容</span>
+        </span>
+        <textarea name="message" rows="5" required id="contactMessage"></textarea>
+      </label>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-modal btn-modal-ghost" data-modal-close>
+          <span class="ko">취소</span><span class="en">Cancel</span><span class="zh">取消</span><span class="ja">キャンセル</span>
+        </button>
+        <button type="submit" class="btn-modal btn-modal-primary" id="contactSubmit">
+          <span class="ko">보내기</span><span class="en">Send</span><span class="zh">发送</span><span class="ja">送信</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script>
   const root = document.documentElement;
 
@@ -751,6 +951,27 @@
     const ogd = document.querySelector('meta[property="og:description"]');
     if (ogd) ogd.setAttribute('content', m.description);
   }
+
+  const contactPlaceholders = {
+    email: {
+      ko: '회신 받을 이메일',
+      en: 'Your email',
+      zh: '您的邮箱',
+      ja: 'メールアドレス',
+    },
+    message: {
+      ko: '어떤 도움이 필요하신가요?',
+      en: 'How can we help?',
+      zh: '需要什么帮助？',
+      ja: 'どのようにお手伝いしましょうか？',
+    },
+  };
+  function applyContactPlaceholders(lang) {
+    const email = document.getElementById('contactEmail');
+    const msg = document.getElementById('contactMessage');
+    if (email) email.placeholder = contactPlaceholders.email[lang] || contactPlaceholders.email.en;
+    if (msg) msg.placeholder = contactPlaceholders.message[lang] || contactPlaceholders.message.en;
+  }
   function detectBrowserLang() {
     const langs = navigator.languages && navigator.languages.length
       ? navigator.languages
@@ -766,6 +987,7 @@
   root.setAttribute('data-lang', savedLang);
   root.setAttribute('lang', savedLang);
   applyMeta(savedLang);
+  applyContactPlaceholders(savedLang);
   const langSelect = document.getElementById('langSelect');
   langSelect.value = savedLang;
   langSelect.addEventListener('change', () => {
@@ -773,7 +995,81 @@
     root.setAttribute('data-lang', lang);
     root.setAttribute('lang', lang);
     applyMeta(lang);
+    applyContactPlaceholders(lang);
     localStorage.setItem('atticlab-lang', lang);
+  });
+
+  // ----- Contact modal -----
+  const contactBtn = document.getElementById('contactBtn');
+  const contactModal = document.getElementById('contactModal');
+  const contactForm = document.getElementById('contactForm');
+  const contactSubmit = document.getElementById('contactSubmit');
+  const toastEl = document.getElementById('toast');
+
+  const toastMessages = {
+    success: {
+      ko: '메시지가 전송됐어요. 24시간 내 답장드릴게요.',
+      en: "Message sent. We'll reply within 24h.",
+      zh: '消息已发送，24小时内回复。',
+      ja: 'メッセージを送信しました。24時間以内に返信します。',
+    },
+    error: {
+      ko: '전송에 실패했어요. 잠시 후 다시 시도해주세요.',
+      en: 'Failed to send. Please try again.',
+      zh: '发送失败，请稍后重试。',
+      ja: '送信に失敗しました。しばらくしてから再度お試しください。',
+    },
+  };
+
+  function openContactModal() {
+    contactModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => document.getElementById('contactEmail').focus(), 60);
+  }
+  function closeContactModal() {
+    contactModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  function showToast(message, type) {
+    toastEl.textContent = message;
+    toastEl.classList.toggle('error', type === 'error');
+    toastEl.classList.add('show');
+    setTimeout(() => toastEl.classList.remove('show'), 4500);
+  }
+
+  contactBtn.addEventListener('click', openContactModal);
+  contactModal.querySelectorAll('[data-modal-close]').forEach(el => {
+    el.addEventListener('click', closeContactModal);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && contactModal.getAttribute('aria-hidden') === 'false') {
+      closeContactModal();
+    }
+  });
+
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    contactSubmit.disabled = true;
+    const lang = root.getAttribute('data-lang') || 'en';
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(contactForm),
+      });
+      const json = await res.json();
+      if (json.success) {
+        contactForm.reset();
+        closeContactModal();
+        showToast(toastMessages.success[lang] || toastMessages.success.en, 'success');
+      } else {
+        throw new Error(json.message || 'send failed');
+      }
+    } catch (err) {
+      showToast(toastMessages.error[lang] || toastMessages.error.en, 'error');
+    } finally {
+      contactSubmit.disabled = false;
+    }
   });
 
   const themeBtn = document.getElementById('themeBtn');
