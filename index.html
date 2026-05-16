@@ -114,30 +114,38 @@
   .icon-btn svg { width: 18px; height: 18px; }
 
   .nav-actions { display: flex; align-items: center; gap: 4px; }
-  .pill-toggle {
-    display: inline-flex;
-    align-items: center;
-    background: var(--bg-soft);
+  .lang-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: var(--bg-soft);
     border: 1px solid var(--line);
     border-radius: 999px;
-    padding: 3px;
+    padding: 7px 30px 7px 14px;
     font-size: 13px;
     font-weight: 600;
+    color: var(--fg);
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238a8a93' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    transition: border-color .15s var(--ease), background-color .15s var(--ease);
   }
-  .pill-toggle button {
-    padding: 6px 12px;
-    border-radius: 999px;
-    color: var(--fg-mute);
-    transition: all .18s var(--ease);
-  }
-  .pill-toggle button.active {
-    background: var(--fg);
-    color: var(--bg);
-  }
+  .lang-select:hover { border-color: var(--line-strong); }
+  .lang-select:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
 
   /* ---------- I18N ---------- */
-  [data-lang="en"] .ko { display: none; }
-  [data-lang="ko"] .en { display: none; }
+  [data-lang="ko"] .en, [data-lang="ko"] .zh, [data-lang="ko"] .ja { display: none; }
+  [data-lang="en"] .ko, [data-lang="en"] .zh, [data-lang="en"] .ja { display: none; }
+  [data-lang="zh"] .ko, [data-lang="zh"] .en, [data-lang="zh"] .ja { display: none; }
+  [data-lang="ja"] .ko, [data-lang="ja"] .en, [data-lang="ja"] .zh { display: none; }
+  :lang(zh), [lang="zh"] {
+    font-family: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', 'Pretendard Variable', sans-serif;
+  }
+  :lang(ja), [lang="ja"] {
+    font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', 'Pretendard Variable', sans-serif;
+  }
 
   /* ---------- HERO ---------- */
   .hero {
@@ -479,10 +487,12 @@
       AtticLab
     </a>
     <div class="nav-actions">
-      <div class="pill-toggle" role="tablist" aria-label="Language">
-        <button data-set-lang="ko" role="tab">KO</button>
-        <button data-set-lang="en" class="active" role="tab">EN</button>
-      </div>
+      <select class="lang-select" id="langSelect" aria-label="Language">
+        <option value="ko">한국어</option>
+        <option value="en">English</option>
+        <option value="zh">中文</option>
+        <option value="ja">日本語</option>
+      </select>
       <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
         <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="4"/>
@@ -500,6 +510,8 @@
       <span class="dot"></span>
       <span class="ko">인디 소프트웨어 스튜디오 · 2026</span>
       <span class="en">Indie software studio · est. 2026</span>
+      <span class="zh">独立软件工作室 · 2026</span>
+      <span class="ja">インディーソフトウェアスタジオ · 2026</span>
     </span>
     <h1 class="wordmark">
       Attic<span class="lab">Lab</span>
@@ -507,6 +519,8 @@
     <p class="hero-tag">
       <span class="ko">다락방에서 시작된, 작은 인디 스튜디오. 일상에 도움이 되는 앱을 만듭니다.</span>
       <span class="en">A small indie studio that started in an attic. We build apps that help with everyday life.</span>
+      <span class="zh">始于阁楼的小型独立工作室。我们打造让日常更轻松的应用。</span>
+      <span class="ja">屋根裏部屋から始まった小さなインディースタジオ。日常に役立つアプリを作っています。</span>
     </p>
   </div>
 </header>
@@ -515,8 +529,12 @@
 <section id="apps">
   <div class="container">
     <div class="sec-head">
-      <h2 class="sec-title"><span class="ko">우리 앱</span><span class="en">Our Apps</span></h2>
-      <span class="sec-meta"><span class="ko">01 / 출시 · 더 만드는 중</span><span class="en">01 / Live · More on the way</span></span>
+      <h2 class="sec-title"><span class="ko">우리 앱</span><span class="en">Our Apps</span>
+      <span class="zh">我们的应用</span>
+      <span class="ja">私たちのアプリ</span></h2>
+      <span class="sec-meta"><span class="ko">01 / 출시 · 더 만드는 중</span><span class="en">01 / Live · More on the way</span>
+      <span class="zh">01 / 已上线 · 更多即将推出</span>
+      <span class="ja">01 / 公開中 · 続々開発中</span></span>
     </div>
 
     <div class="apps">
@@ -525,11 +543,15 @@
         <div class="app-info">
           <div class="app-row">
             <span class="app-name">ShutTimer</span>
-            <span class="app-status"><span class="ko">출시</span><span class="en">Live</span></span>
+            <span class="app-status"><span class="ko">출시</span><span class="en">Live</span>
+      <span class="zh">已上线</span>
+      <span class="ja">公開中</span></span>
           </div>
           <div class="app-desc">
             <span class="ko">일어날 수밖에 없게 만드는 알람. 사진 미션 알람 + 루틴 타이머.</span>
             <span class="en">The alarm you stand up for. Photo-mission alarms + routine timer.</span>
+      <span class="zh">让你不得不起床的闹钟。照片任务闹钟 + 习惯计时器。</span>
+      <span class="ja">起きるしかなくなる目覚まし。写真ミッションアラーム + ルーティンタイマー。</span>
           </div>
         </div>
         <div class="app-arrow">
@@ -541,12 +563,18 @@
         <div class="placeholder-icon" aria-hidden="true">?</div>
         <div class="app-info">
           <div class="app-row">
-            <span class="app-name"><span class="ko">다음 앱</span><span class="en">Next app</span></span>
-            <span class="app-status soon"><span class="ko">준비 중</span><span class="en">Brewing</span></span>
+            <span class="app-name"><span class="ko">다음 앱</span><span class="en">Next app</span>
+      <span class="zh">下一款应用</span>
+      <span class="ja">次のアプリ</span></span>
+            <span class="app-status soon"><span class="ko">준비 중</span><span class="en">Brewing</span>
+      <span class="zh">准备中</span>
+      <span class="ja">準備中</span></span>
           </div>
           <div class="app-desc">
             <span class="ko">다락방에서 조용히 만드는 중. 곧 만나요.</span>
             <span class="en">Quietly being built in the attic. We'll see you soon.</span>
+      <span class="zh">正在阁楼里悄悄打造。很快见。</span>
+      <span class="ja">屋根裏部屋で静かに制作中。もうすぐお会いしましょう。</span>
           </div>
         </div>
       </div>
@@ -558,31 +586,45 @@
 <section class="manifesto" id="about">
   <div class="container">
     <div class="sec-head">
-      <h2 class="sec-title"><span class="ko">우리의 방식</span><span class="en">How we work</span></h2>
-      <span class="sec-meta"><span class="ko">스튜디오 · 노트</span><span class="en">Studio · Notes</span></span>
+      <h2 class="sec-title"><span class="ko">우리의 방식</span><span class="en">How we work</span>
+      <span class="zh">我们的方式</span>
+      <span class="ja">私たちの流儀</span></h2>
+      <span class="sec-meta"><span class="ko">스튜디오 · 노트</span><span class="en">Studio · Notes</span>
+      <span class="zh">工作室 · 笔记</span>
+      <span class="ja">スタジオ · ノート</span></span>
     </div>
 
     <blockquote class="mani-quote">
       <span class="ko">“출시는 시작입니다. 만든 앱을 꾸준히 다듬고, 새로운 앱도 함께 만들어 갑니다.”</span>
       <span class="en">"Launch is just the beginning. We keep refining the apps we've made, and build new ones alongside them."</span>
+      <span class="zh">"上线只是开始。我们持续打磨已发布的应用，并同时开发新的应用。"</span>
+      <span class="ja">「リリースは始まりです。作ったアプリを丁寧に磨き続け、新しいアプリも一緒に作っていきます。」</span>
     </blockquote>
 
     <div class="principles">
       <div class="principle">
         <div class="principle-num">01</div>
-        <div class="principle-text"><span class="ko">직접 쓰고 싶은 앱</span><span class="en">Apps we want to use ourselves</span></div>
+        <div class="principle-text"><span class="ko">직접 쓰고 싶은 앱</span><span class="en">Apps we want to use ourselves</span>
+      <span class="zh">自己也想用的应用</span>
+      <span class="ja">自分たちが使いたいアプリ</span></div>
       </div>
       <div class="principle">
         <div class="principle-num">02</div>
-        <div class="principle-text"><span class="ko">작게 시작, 꾸준히 다듬기</span><span class="en">Start small, refine continuously</span></div>
+        <div class="principle-text"><span class="ko">작게 시작, 꾸준히 다듬기</span><span class="en">Start small, refine continuously</span>
+      <span class="zh">小步开始，持续打磨</span>
+      <span class="ja">小さく始めて、磨き続ける</span></div>
       </div>
       <div class="principle">
         <div class="principle-num">03</div>
-        <div class="principle-text"><span class="ko">문의는 사람이 직접 답합니다</span><span class="en">Real humans answer your questions</span></div>
+        <div class="principle-text"><span class="ko">문의는 사람이 직접 답합니다</span><span class="en">Real humans answer your questions</span>
+      <span class="zh">由真人回复您的咨询</span>
+      <span class="ja">お問い合わせには人が直接お答えします</span></div>
       </div>
       <div class="principle">
         <div class="principle-num">04</div>
-        <div class="principle-text"><span class="ko">다락방에서 제작</span><span class="en">Built in an attic</span></div>
+        <div class="principle-text"><span class="ko">다락방에서 제작</span><span class="en">Built in an attic</span>
+      <span class="zh">在阁楼里打造</span>
+      <span class="ja">屋根裏部屋で制作</span></div>
       </div>
     </div>
   </div>
@@ -592,22 +634,32 @@
 <section id="contact">
   <div class="container">
     <div class="sec-head">
-      <h2 class="sec-title"><span class="ko">연락하기</span><span class="en">Get in touch</span></h2>
-      <span class="sec-meta"><span class="ko">24시간 내 답장</span><span class="en">Replies in 24h</span></span>
+      <h2 class="sec-title"><span class="ko">연락하기</span><span class="en">Get in touch</span>
+      <span class="zh">联系我们</span>
+      <span class="ja">お問い合わせ</span></h2>
+      <span class="sec-meta"><span class="ko">24시간 내 답장</span><span class="en">Replies in 24h</span>
+      <span class="zh">24小时内回复</span>
+      <span class="ja">24時間以内に返信</span></span>
     </div>
 
     <div class="contact-row">
       <a class="link-btn" href="mailto:hwan4870a@gmail.com">
         <div class="label-row">
-          <span><span class="ko">문의</span><span class="en">Contact</span></span>
+          <span><span class="ko">문의</span><span class="en">Contact</span>
+      <span class="zh">联系</span>
+      <span class="ja">お問い合わせ</span></span>
           <small>hwan4870a@gmail.com</small>
         </div>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </a>
       <a class="link-btn" href="privacy/">
         <div class="label-row">
-          <span><span class="ko">개인정보 처리방침</span><span class="en">Privacy Policy</span></span>
-          <small><span class="ko">사용자 데이터를 어떻게 다루는지 (안 다룹니다)</span><span class="en">How we handle your data (we don't)</span></small>
+          <span><span class="ko">개인정보 처리방침</span><span class="en">Privacy Policy</span>
+      <span class="zh">隐私政策</span>
+      <span class="ja">プライバシーポリシー</span></span>
+          <small><span class="ko">사용자 데이터를 어떻게 다루는지 (안 다룹니다)</span><span class="en">How we handle your data (we don't)</span>
+      <span class="zh">我们如何处理您的数据（我们不处理）</span>
+      <span class="ja">ユーザーデータの取り扱い方針（取り扱いません）</span></small>
         </div>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </a>
@@ -626,9 +678,13 @@
           <path d="M10 20v-5h4v5"/>
         </svg>
       </span>
-      <span><span class="ko">© 2026 AtticLab. 모든 권리 보유.</span><span class="en">© 2026 AtticLab. All rights reserved.</span></span>
+      <span><span class="ko">© 2026 AtticLab. 모든 권리 보유.</span><span class="en">© 2026 AtticLab. All rights reserved.</span>
+      <span class="zh">© 2026 AtticLab. 保留所有权利。</span>
+      <span class="ja">© 2026 AtticLab. All rights reserved.</span></span>
     </div>
-    <div><span class="ko">대한민국 다락방에서 🏠</span><span class="en">Made from an attic in Korea 🏠</span></div>
+    <div><span class="ko">대한민국 다락방에서 🏠</span><span class="en">Made from an attic in Korea 🏠</span>
+      <span class="zh">来自韩国的阁楼 🏠</span>
+      <span class="ja">韓国の屋根裏部屋から 🏠</span></div>
   </div>
 </footer>
 
@@ -636,18 +692,18 @@
   const root = document.documentElement;
 
   // i18n
-  const savedLang = localStorage.getItem('atticlab-lang') || 'en';
+  const supportedLangs = ['ko', 'en', 'zh', 'ja'];
+  const stored = localStorage.getItem('atticlab-lang');
+  const savedLang = supportedLangs.includes(stored) ? stored : 'en';
   root.setAttribute('data-lang', savedLang);
   root.setAttribute('lang', savedLang);
-  document.querySelectorAll('[data-set-lang]').forEach(btn => {
-    if (btn.dataset.setLang === savedLang) btn.classList.add('active'); else btn.classList.remove('active');
-    btn.addEventListener('click', () => {
-      const lang = btn.dataset.setLang;
-      root.setAttribute('data-lang', lang);
-      root.setAttribute('lang', lang);
-      localStorage.setItem('atticlab-lang', lang);
-      document.querySelectorAll('[data-set-lang]').forEach(b => b.classList.toggle('active', b === btn));
-    });
+  const langSelect = document.getElementById('langSelect');
+  langSelect.value = savedLang;
+  langSelect.addEventListener('change', () => {
+    const lang = langSelect.value;
+    root.setAttribute('data-lang', lang);
+    root.setAttribute('lang', lang);
+    localStorage.setItem('atticlab-lang', lang);
   });
 
   const themeBtn = document.getElementById('themeBtn');

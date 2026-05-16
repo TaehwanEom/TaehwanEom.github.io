@@ -115,26 +115,26 @@
   .brand-mark img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
   .nav-actions { display: flex; align-items: center; gap: 4px; }
-  .pill-toggle {
-    display: inline-flex;
-    align-items: center;
-    background: var(--bg-soft);
+  .lang-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: var(--bg-soft);
     border: 1px solid var(--line);
     border-radius: 999px;
-    padding: 3px;
+    padding: 7px 30px 7px 14px;
     font-size: 13px;
     font-weight: 600;
+    color: var(--fg);
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238a8a93' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    transition: border-color .15s var(--ease), background-color .15s var(--ease);
   }
-  .pill-toggle button {
-    padding: 6px 12px;
-    border-radius: 999px;
-    color: var(--fg-mute);
-    transition: all .18s var(--ease);
-  }
-  .pill-toggle button.active {
-    background: var(--fg);
-    color: var(--bg);
-  }
+  .lang-select:hover { border-color: var(--line-strong); }
+  .lang-select:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
   .icon-btn {
     width: 38px; height: 38px;
     border-radius: 999px;
@@ -949,8 +949,16 @@
   .badge-appstore .text strong { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
 
   /* ---------- I18N ---------- */
-  [data-lang="en"] .ko { display: none; }
-  [data-lang="ko"] .en { display: none; }
+  [data-lang="ko"] .en, [data-lang="ko"] .zh, [data-lang="ko"] .ja { display: none; }
+  [data-lang="en"] .ko, [data-lang="en"] .zh, [data-lang="en"] .ja { display: none; }
+  [data-lang="zh"] .ko, [data-lang="zh"] .en, [data-lang="zh"] .ja { display: none; }
+  [data-lang="ja"] .ko, [data-lang="ja"] .en, [data-lang="ja"] .zh { display: none; }
+  :lang(zh), [lang="zh"] {
+    font-family: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', 'Pretendard Variable', sans-serif;
+  }
+  :lang(ja), [lang="ja"] {
+    font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', 'Pretendard Variable', sans-serif;
+  }
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 1100px) {
@@ -971,7 +979,7 @@
   }
   @media (max-width: 560px) {
     .hero { padding: 32px 0; }
-    .nav-actions .pill-toggle { font-size: 12px; }
+    .nav-actions .lang-select { font-size: 12px; padding: 6px 26px 6px 12px; }
     .float-chip.c { display: none; }
     .float-chip.a { left: 0; }
     .float-chip.b { right: 0; }
@@ -996,10 +1004,12 @@
       ShutTimer
     </a>
     <div class="nav-actions">
-      <div class="pill-toggle" role="tablist" aria-label="Language">
-        <button data-set-lang="ko" role="tab">KO</button>
-        <button data-set-lang="en" class="active" role="tab">EN</button>
-      </div>
+      <select class="lang-select" id="langSelect" aria-label="Language">
+        <option value="ko">한국어</option>
+        <option value="en">English</option>
+        <option value="zh">中文</option>
+        <option value="ja">日本語</option>
+      </select>
       <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
         <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="4"/>
@@ -1018,6 +1028,8 @@
         <span class="dot"></span>
         <span class="ko">iOS에서 만나보세요</span>
         <span class="en">Now on the App Store</span>
+      <span class="zh">现已登陆 App Store</span>
+      <span class="ja">App Storeで公開中</span>
       </span>
 
       <h1 class="headline">
@@ -1027,11 +1039,19 @@
         <span class="en">
           An alarm <span class="mute">isn't for turning off &mdash;</span> <span class="red">it's for waking up</span>
         </span>
+        <span class="zh">
+          闹钟<span class="mute">不是用来关掉的——</span><span class="red">是用来起床的</span>
+        </span>
+        <span class="ja">
+          目覚ましは<span class="mute">止めるものじゃない——</span><span class="red">起きるためのもの</span>
+        </span>
       </h1>
 
       <p class="sub">
         <span class="ko">사진을 찍어야 꺼지는 알람과, 해제 직후 자동으로 시작되는 루틴 타이머. ShutTimer는 일어날 수밖에 없는 환경을 만듭니다.</span>
         <span class="en">A camera-mission alarm and a routine timer that fires the moment you dismiss it. ShutTimer makes getting up the only option.</span>
+      <span class="zh">必须拍照才能关闭的闹钟，与解除瞬间自动启动的习惯计时器。ShutTimer 让起床成为唯一选择。</span>
+      <span class="ja">写真ミッションで止める目覚ましと、解除直後に自動で始まるルーティンタイマー。ShutTimer は「起きる」を唯一の選択肢に変えます。</span>
       </p>
 
       <div class="hero-cta">
@@ -1040,13 +1060,17 @@
             <path d="M16.365 1.43c0 1.14-.39 2.21-1.16 3.06-.78.87-2.06 1.55-3.13 1.46-.13-1.13.39-2.32 1.13-3.07.86-.86 2.27-1.52 3.16-1.45zM20.78 17.42c-.55 1.27-.81 1.84-1.52 2.96-.99 1.55-2.39 3.48-4.12 3.5-1.54.02-1.93-1.01-4.02-1-2.09.01-2.52 1.02-4.06 1-1.73-.02-3.06-1.77-4.05-3.32C.16 16.13-.16 11.07 1.6 8.4c1.26-1.91 3.24-3.03 5.11-3.03 1.9 0 3.1 1.04 4.67 1.04 1.53 0 2.46-1.05 4.66-1.05 1.67 0 3.43.91 4.69 2.48-4.12 2.26-3.45 8.15.05 9.58z"/>
           </svg>
           <span class="text">
-            <small><span class="ko">App Store에서 받기</span><span class="en">Download on the</span></small>
+            <small><span class="ko">App Store에서 받기</span><span class="en">Download on the</span>
+      <span class="zh">立即下载</span>
+      <span class="ja">ダウンロードはこちら</span></small>
             <strong>App Store</strong>
           </span>
         </a>
         <a href="#features" class="btn btn-ghost">
           <span class="ko">기능 둘러보기</span>
           <span class="en">See features</span>
+      <span class="zh">查看功能</span>
+      <span class="ja">機能を見る</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
       </div>
@@ -1055,14 +1079,20 @@
         <span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
           <span class="ko">광고 없음</span><span class="en">No ads</span>
+      <span class="zh">无广告</span>
+      <span class="ja">広告なし</span>
         </span>
         <span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
           <span class="ko">사진은 기기에만 저장</span><span class="en">Photos stay on device</span>
+      <span class="zh">照片仅存于设备</span>
+      <span class="ja">写真は端末内のみ</span>
         </span>
         <span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4.5L6 21l1.5-7.5L2 9h7z"/></svg>
           <span class="ko">아이부터 어른까지</span><span class="en">Kids to adults</span>
+      <span class="zh">老少皆宜</span>
+      <span class="ja">お子様から大人まで</span>
         </span>
       </div>
     </div>
@@ -1080,8 +1110,12 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M5 7h2l2-3h6l2 3h2a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2z"/></svg>
         </div>
         <div>
-          <div class="chip-title"><span class="ko">사진 미션</span><span class="en">Photo mission</span></div>
-          <div class="chip-sub"><span class="ko">세면대를 찍어주세요</span><span class="en">Snap your sink</span></div>
+          <div class="chip-title"><span class="ko">사진 미션</span><span class="en">Photo mission</span>
+      <span class="zh">拍照任务</span>
+      <span class="ja">写真ミッション</span></div>
+          <div class="chip-sub"><span class="ko">세면대를 찍어주세요</span><span class="en">Snap your sink</span>
+      <span class="zh">拍下洗手台</span>
+      <span class="ja">洗面台を撮ろう</span></div>
         </div>
       </div>
 
@@ -1090,14 +1124,20 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </div>
         <div>
-          <div class="chip-title"><span class="ko">루틴 시작</span><span class="en">Routine on</span></div>
-          <div class="chip-sub"><span class="ko">양치 · 옷 입기 · 가방</span><span class="en">Brush · Dress · Pack</span></div>
+          <div class="chip-title"><span class="ko">루틴 시작</span><span class="en">Routine on</span>
+      <span class="zh">习惯启动</span>
+      <span class="ja">ルーティン開始</span></div>
+          <div class="chip-sub"><span class="ko">양치 · 옷 입기 · 가방</span><span class="en">Brush · Dress · Pack</span>
+      <span class="zh">刷牙 · 穿衣 · 整包</span>
+      <span class="ja">歯磨き · 着替え · カバン</span></div>
         </div>
       </div>
 
       <div class="float-chip c">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M12 1v2"/></svg></div>
-        <div class="chip-title"><span class="ko">60분 다이얼</span><span class="en">60-min dial</span></div>
+        <div class="chip-title"><span class="ko">60분 다이얼</span><span class="en">60-min dial</span>
+      <span class="zh">60分钟表盘</span>
+      <span class="ja">60分ダイヤル</span></div>
       </div>
     </div>
   </div>
@@ -1107,14 +1147,20 @@
 <section id="features">
   <div class="container">
     <div class="sec-head">
-      <span class="sec-tag"><span class="ko">핵심 기능</span><span class="en">Core features</span></span>
+      <span class="sec-tag"><span class="ko">핵심 기능</span><span class="en">Core features</span>
+      <span class="zh">核心功能</span>
+      <span class="ja">コア機能</span></span>
       <h2 class="sec-title">
         <span class="ko">단순한 알람이 아닌, 시작 의식</span>
         <span class="en">Not just an alarm — a starting ritual</span>
+      <span class="zh">不只是闹钟，更是开启一天的仪式</span>
+      <span class="ja">ただの目覚ましじゃない、一日を始める儀式</span>
       </h2>
       <p class="sec-sub">
         <span class="ko">한 손에 들어오는 도구 세 가지로, 아침은 끝까지 마무리됩니다.</span>
         <span class="en">Three tools, one ritual. From the first ring to the last task.</span>
+      <span class="zh">三个工具，一个仪式。从第一声铃响到最后一项任务。</span>
+      <span class="ja">三つのツール、ひとつの儀式。最初の音から最後のタスクまで。</span>
       </p>
     </div>
 
@@ -1124,10 +1170,14 @@
           <img src="assets/shuttimer-dial.png" alt="60-minute dial" class="dial-shot dial-shot-dark" />
           <img src="assets/shuttimer-dial-light.png" alt="" class="dial-shot dial-shot-light" />
         </div>
-        <h3><span class="ko">60분 다이얼</span><span class="en">60-minute dial</span></h3>
+        <h3><span class="ko">60분 다이얼</span><span class="en">60-minute dial</span>
+      <span class="zh">60分钟表盘</span>
+      <span class="ja">60分ダイヤル</span></h3>
         <p>
           <span class="ko">손가락으로 돌려서 1초 만에 시간을 설정. 빨간 호가 남은 시간을 직관적으로 보여줍니다.</span>
           <span class="en">Spin to set time in one second. The red arc shows what's left at a glance.</span>
+      <span class="zh">一秒旋转设定时间。红色弧线一眼显示剩余时间。</span>
+      <span class="ja">指で回して一秒で時間を設定。赤い弧で残り時間が一目で分かります。</span>
         </p>
       </article>
 
@@ -1138,27 +1188,41 @@
             <div class="cam-icon"></div>
           </div>
         </div>
-        <h3><span class="ko">사진 미션 알람</span><span class="en">Photo-mission alarm</span></h3>
+        <h3><span class="ko">사진 미션 알람</span><span class="en">Photo-mission alarm</span>
+      <span class="zh">拍照任务闹钟</span>
+      <span class="ja">写真ミッションアラーム</span></h3>
         <p>
           <span class="ko">미리 정해둔 장소 — 세면대, 창문, 주방 — 의 사진을 찍어야만 알람이 꺼집니다. 침대 밖으로 나오게 만드는 가장 확실한 방법.</span>
           <span class="en">Aim your camera at a pre-set spot — sink, window, kitchen — to dismiss. The surest way out of bed.</span>
+      <span class="zh">将相机对准预设地点——洗手台、窗户、厨房——才能解除。最让你下床的方法。</span>
+      <span class="ja">洗面台、窓、キッチンなど、事前に決めた場所にカメラを向けて解除。ベッドから出る最確実な方法。</span>
         </p>
       </article>
 
       <article class="feature">
         <div class="feature-art">
           <div class="art-chain">
-            <span class="chain-pill"><span class="ko">알람</span><span class="en">Alarm</span></span>
+            <span class="chain-pill"><span class="ko">알람</span><span class="en">Alarm</span>
+      <span class="zh">闹钟</span>
+      <span class="ja">アラーム</span></span>
             <span class="chain-arrow">→</span>
-            <span class="chain-pill alt"><span class="ko">양치</span><span class="en">Brush</span></span>
+            <span class="chain-pill alt"><span class="ko">양치</span><span class="en">Brush</span>
+      <span class="zh">刷牙</span>
+      <span class="ja">歯磨き</span></span>
             <span class="chain-arrow">→</span>
-            <span class="chain-pill alt"><span class="ko">옷</span><span class="en">Dress</span></span>
+            <span class="chain-pill alt"><span class="ko">옷</span><span class="en">Dress</span>
+      <span class="zh">穿衣</span>
+      <span class="ja">着替え</span></span>
           </div>
         </div>
-        <h3><span class="ko">루틴 자동 연결</span><span class="en">Auto-chained routine</span></h3>
+        <h3><span class="ko">루틴 자동 연결</span><span class="en">Auto-chained routine</span>
+      <span class="zh">自动衔接习惯</span>
+      <span class="ja">自動連結ルーティン</span></h3>
         <p>
           <span class="ko">알람이 꺼진 직후, 미리 만들어둔 루틴 타이머가 자동 시작. 다음 할 일을 고민할 필요가 없습니다.</span>
           <span class="en">The moment the alarm dies, your routine starts itself. No deciding what's next.</span>
+      <span class="zh">闹钟一停，习惯立刻自动开始。无需思考下一步做什么。</span>
+      <span class="ja">アラームが止まった瞬間、ルーティンが自動で始まります。次に何をすべきか迷う必要はありません。</span>
         </p>
       </article>
     </div>
@@ -1169,14 +1233,20 @@
 <section class="routine-bg">
   <div class="container">
     <div class="sec-head">
-      <span class="sec-tag"><span class="ko">사용 시나리오</span><span class="en">A morning, mapped</span></span>
+      <span class="sec-tag"><span class="ko">사용 시나리오</span><span class="en">A morning, mapped</span>
+      <span class="zh">早晨，一目了然</span>
+      <span class="ja">朝の流れ、見える化</span></span>
       <h2 class="sec-title">
         <span class="ko">07:00부터 07:45까지, 멈춤 없이</span>
         <span class="en">From 07:00 to 07:45 — no stalls.</span>
+      <span class="zh">从 07:00 到 07:45 —— 一气呵成。</span>
+      <span class="ja">07:00から07:45まで—— 止まらず一気に。</span>
       </h2>
       <p class="sec-sub">
         <span class="ko">아침 한 번을 잘 보내는 것이 하루를 결정합니다. 한 단계가 끝나면 다음 단계가 자동으로 이어집니다.</span>
         <span class="en">A good morning sets the day. As one step ends, the next begins on its own.</span>
+      <span class="zh">美好的早晨决定一整天。一步结束，下一步自动开始。</span>
+      <span class="ja">良い朝が一日を決めます。ひとつのステップが終わると、次が自動で始まります。</span>
       </p>
     </div>
 
@@ -1187,15 +1257,21 @@
           <div class="tl-dot">⏰</div>
           <div class="tl-text">
             <div class="tl-time">07:00</div>
-            <div class="tl-label"><span class="ko">기상</span><span class="en">Wake</span></div>
-            <div class="tl-dur"><span class="ko">사진 미션</span><span class="en">Photo mission</span></div>
+            <div class="tl-label"><span class="ko">기상</span><span class="en">Wake</span>
+      <span class="zh">起床</span>
+      <span class="ja">起床</span></div>
+            <div class="tl-dur"><span class="ko">사진 미션</span><span class="en">Photo mission</span>
+      <span class="zh">拍照任务</span>
+      <span class="ja">写真ミッション</span></div>
           </div>
         </div>
         <div class="tl-step done">
           <div class="tl-dot">🪥</div>
           <div class="tl-text">
             <div class="tl-time">07:05</div>
-            <div class="tl-label"><span class="ko">양치 · 세수</span><span class="en">Brush · Wash</span></div>
+            <div class="tl-label"><span class="ko">양치 · 세수</span><span class="en">Brush · Wash</span>
+      <span class="zh">刷牙 · 洗脸</span>
+      <span class="ja">歯磨き · 洗顔</span></div>
             <div class="tl-dur">5 min</div>
           </div>
         </div>
@@ -1203,7 +1279,9 @@
           <div class="tl-dot">👕</div>
           <div class="tl-text">
             <div class="tl-time">07:15</div>
-            <div class="tl-label"><span class="ko">옷 입기</span><span class="en">Get dressed</span></div>
+            <div class="tl-label"><span class="ko">옷 입기</span><span class="en">Get dressed</span>
+      <span class="zh">穿衣服</span>
+      <span class="ja">着替え</span></div>
             <div class="tl-dur">10 min</div>
           </div>
         </div>
@@ -1211,7 +1289,9 @@
           <div class="tl-dot">🥣</div>
           <div class="tl-text">
             <div class="tl-time">07:25</div>
-            <div class="tl-label"><span class="ko">아침 식사</span><span class="en">Breakfast</span></div>
+            <div class="tl-label"><span class="ko">아침 식사</span><span class="en">Breakfast</span>
+      <span class="zh">早餐</span>
+      <span class="ja">朝食</span></div>
             <div class="tl-dur">15 min</div>
           </div>
         </div>
@@ -1219,7 +1299,9 @@
           <div class="tl-dot">🎒</div>
           <div class="tl-text">
             <div class="tl-time">07:40</div>
-            <div class="tl-label"><span class="ko">가방 · 출발</span><span class="en">Pack · Go</span></div>
+            <div class="tl-label"><span class="ko">가방 · 출발</span><span class="en">Pack · Go</span>
+      <span class="zh">整包 · 出门</span>
+      <span class="ja">カバン · 出発</span></div>
             <div class="tl-dur">5 min</div>
           </div>
         </div>
@@ -1232,14 +1314,20 @@
 <section>
   <div class="container">
     <div class="sec-head">
-      <span class="sec-tag"><span class="ko">알람 해제 방식</span><span class="en">Three ways to dismiss</span></span>
+      <span class="sec-tag"><span class="ko">알람 해제 방식</span><span class="en">Three ways to dismiss</span>
+      <span class="zh">三种解除方式</span>
+      <span class="ja">三つの解除方法</span></span>
       <h2 class="sec-title">
         <span class="ko">오늘의 나에게 맞는 강도로</span>
         <span class="en">As gentle, or as strict, as today needs</span>
+      <span class="zh">视当日状态选择宽松或严格</span>
+      <span class="ja">今日のあなたに合わせて、優しくも厳しくも</span>
       </h2>
       <p class="sec-sub">
         <span class="ko">컨디션과 습관에 따라 세 가지 강도 중에서 선택할 수 있어요.</span>
         <span class="en">Pick the difficulty that matches your mood and habit.</span>
+      <span class="zh">根据心情和习惯选择难度。</span>
+      <span class="ja">気分や習慣に合わせて難易度を選べます。</span>
       </p>
     </div>
 
@@ -1253,11 +1341,17 @@
             <path d="M40 20v-6M40 66v-6M20 40h-6M66 40h-6"/>
           </svg>
         </div>
-        <span class="dismiss-tag"><span class="ko">가장 쉬움</span><span class="en">Easiest</span></span>
-        <h3><span class="ko">탭</span><span class="en">Tap</span></h3>
+        <span class="dismiss-tag"><span class="ko">가장 쉬움</span><span class="en">Easiest</span>
+      <span class="zh">最简单</span>
+      <span class="ja">もっとも簡単</span></span>
+        <h3><span class="ko">탭</span><span class="en">Tap</span>
+      <span class="zh">点击</span>
+      <span class="ja">タップ</span></h3>
         <p class="dismiss-sub">
           <span class="ko">한 번 탭하면 즉시 해제. 일찍 깬 날, 잠깐의 낮잠 끝에 쓰기 좋아요.</span>
           <span class="en">One tap, done. For early risers and quick power naps.</span>
+      <span class="zh">一点即解除。适合早起或短暂小睡。</span>
+      <span class="ja">一回タップで完了。早起きや短い昼寝向け。</span>
         </p>
       </div>
 
@@ -1270,11 +1364,17 @@
             <path d="M16 30c-3 3-3 7 0 10M64 30c3 3 3 7 0 10M10 26c-5 5-5 13 0 18M70 26c5 5 5 13 0 18"/>
           </svg>
         </div>
-        <span class="dismiss-tag"><span class="ko">중간</span><span class="en">Medium</span></span>
-        <h3><span class="ko">흔들기</span><span class="en">Shake</span></h3>
+        <span class="dismiss-tag"><span class="ko">중간</span><span class="en">Medium</span>
+      <span class="zh">中等</span>
+      <span class="ja">中程度</span></span>
+        <h3><span class="ko">흔들기</span><span class="en">Shake</span>
+      <span class="zh">摇晃</span>
+      <span class="ja">シェイク</span></h3>
         <p class="dismiss-sub">
           <span class="ko">손에 쥐고 흔들어야 꺼집니다. 손목이 깨면 정신도 깨요.</span>
           <span class="en">Grab and shake. Waking your wrist wakes your mind.</span>
+      <span class="zh">拿起手机摇晃。手腕醒了，头脑也跟着醒。</span>
+      <span class="ja">手に取って振りましょう。手首が目覚めれば、頭も目覚めます。</span>
         </p>
       </div>
 
@@ -1288,11 +1388,17 @@
             <circle cx="58" cy="29" r="1.5" fill="currentColor"/>
           </svg>
         </div>
-        <span class="dismiss-tag"><span class="ko">가장 확실</span><span class="en">Toughest</span></span>
-        <h3><span class="ko">사진 미션</span><span class="en">Photo mission</span></h3>
+        <span class="dismiss-tag"><span class="ko">가장 확실</span><span class="en">Toughest</span>
+      <span class="zh">最严格</span>
+      <span class="ja">もっとも厳しい</span></span>
+        <h3><span class="ko">사진 미션</span><span class="en">Photo mission</span>
+      <span class="zh">拍照任务</span>
+      <span class="ja">写真ミッション</span></h3>
         <p class="dismiss-sub">
           <span class="ko">미리 정한 장소를 카메라로 비춰야 해제. 침대 밖으로 나오게 만드는 가장 강력한 방법.</span>
           <span class="en">Point your camera at a pre-set spot to dismiss. The hardest way to stay in bed.</span>
+      <span class="zh">将相机对准预设地点才能解除。最难赖床的方式。</span>
+      <span class="ja">事前に決めた場所にカメラを向けて解除。ベッドに居続けるのが最も難しい方法。</span>
         </p>
       </div>
 
@@ -1307,11 +1413,17 @@
             <path d="M48 48l10 10M58 48l-10 10"/>
           </svg>
         </div>
-        <span class="dismiss-tag"><span class="ko">두뇌 깨우기</span><span class="en">Brain wake-up</span></span>
-        <h3><span class="ko">산수 풀기</span><span class="en">Math problem</span></h3>
+        <span class="dismiss-tag"><span class="ko">두뇌 깨우기</span><span class="en">Brain wake-up</span>
+      <span class="zh">大脑唤醒</span>
+      <span class="ja">頭を起こす</span></span>
+        <h3><span class="ko">산수 풀기</span><span class="en">Math problem</span>
+      <span class="zh">算术题</span>
+      <span class="ja">計算問題</span></h3>
         <p class="dismiss-sub">
           <span class="ko">간단한 사칙연산을 풀어야 알람이 꺼집니다. 잠든 머리를 가장 빨리 깨우는 방법.</span>
           <span class="en">Solve a quick arithmetic problem to dismiss. The fastest way to boot a sleepy brain.</span>
+      <span class="zh">解一道简单算术题才能关闭。最快唤醒困倦大脑的方法。</span>
+      <span class="ja">簡単な計算問題を解いて解除。眠い脳を最速で起動する方法。</span>
         </p>
       </div>
 
@@ -1324,11 +1436,17 @@
             <path d="M56 50l8-8 4 4-8 8z"/>
           </svg>
         </div>
-        <span class="dismiss-tag"><span class="ko">집중 모드</span><span class="en">Focus mode</span></span>
-        <h3><span class="ko">받아쓰기</span><span class="en">Dictation</span></h3>
+        <span class="dismiss-tag"><span class="ko">집중 모드</span><span class="en">Focus mode</span>
+      <span class="zh">专注模式</span>
+      <span class="ja">集中モード</span></span>
+        <h3><span class="ko">받아쓰기</span><span class="en">Dictation</span>
+      <span class="zh">听写</span>
+      <span class="ja">書き取り</span></h3>
         <p class="dismiss-sub">
           <span class="ko">화면에 나타나는 문장을 그대로 따라 입력해야 해제. 단어를 읽고 쓰는 동안 뇌가 활성화됩니다.</span>
           <span class="en">Retype the sentence shown on screen to dismiss. Reading and writing wake the mind fully.</span>
+      <span class="zh">在屏幕上重新输入显示的句子才能解除。读写之间，大脑完全清醒。</span>
+      <span class="ja">画面に表示される文を入力して解除。読んで書くうちに、脳がしっかり目覚めます。</span>
         </p>
       </div>
     </div>
@@ -1343,62 +1461,84 @@
       <h2 class="sec-title">
         <span class="ko">자주 묻는 질문</span>
         <span class="en">Common questions</span>
+      <span class="zh">常见问题</span>
+      <span class="ja">よくある質問</span>
       </h2>
     </div>
 
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q">
-          <span><span class="ko">사진 미션은 어떻게 인식하나요?</span><span class="en">How does the photo mission work?</span></span>
+          <span><span class="ko">사진 미션은 어떻게 인식하나요?</span><span class="en">How does the photo mission work?</span>
+      <span class="zh">拍照任务是如何识别的？</span>
+      <span class="ja">写真ミッションはどう動きますか？</span></span>
           <span class="faq-toggle"></span>
         </button>
         <div class="faq-a"><div class="faq-a-inner">
           <span class="ko">처음에 "기준 사진"을 한 장 등록해 두면, 알람이 울릴 때 비슷한 장면을 카메라로 비춰야 해제됩니다. 너무 어둡거나 다른 장소를 비추면 인식되지 않아요.</span>
           <span class="en">You first register a reference photo. When the alarm rings, you must aim your camera at a similar scene to dismiss it. Too dark or pointed elsewhere? No dismiss.</span>
+      <span class="zh">您先注册一张参考照片。闹钟响起时，必须将相机对准相似场景才能解除。光线太暗或拍错地方？无法解除。</span>
+      <span class="ja">最初に基準となる写真を登録します。アラームが鳴ったら、似た場面にカメラを向けないと解除できません。暗すぎたり、別の場所を向いていたら解除されません。</span>
         </div></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q">
-          <span><span class="ko">사진은 어디에 저장되나요?</span><span class="en">Where are the photos stored?</span></span>
+          <span><span class="ko">사진은 어디에 저장되나요?</span><span class="en">Where are the photos stored?</span>
+      <span class="zh">照片存储在哪里？</span>
+      <span class="ja">写真はどこに保存されますか？</span></span>
           <span class="faq-toggle"></span>
         </button>
         <div class="faq-a"><div class="faq-a-inner">
           <span class="ko">모든 사진은 사용자의 기기 안에만 저장되며, 외부 서버로 전송되지 않습니다. 인식이 끝나면 자동으로 삭제하도록 설정할 수도 있어요.</span>
           <span class="en">All photos stay on your device — nothing is sent to a server. You can also set them to auto-delete after each match.</span>
+      <span class="zh">所有照片仅保留在您的设备上——绝不发送到任何服务器。也可设置识别后自动删除。</span>
+      <span class="ja">すべての写真はお使いの端末内にのみ保存され、サーバーには送信されません。識別後の自動削除も設定できます。</span>
         </div></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q">
-          <span><span class="ko">아이도 사용할 수 있나요?</span><span class="en">Can kids use it?</span></span>
+          <span><span class="ko">아이도 사용할 수 있나요?</span><span class="en">Can kids use it?</span>
+      <span class="zh">孩子也可以使用吗？</span>
+      <span class="ja">子どもでも使えますか？</span></span>
           <span class="faq-toggle"></span>
         </button>
         <div class="faq-a"><div class="faq-a-inner">
           <span class="ko">네. 부모가 루틴과 해제 방식을 미리 설정해두면, 아이는 사진 한 장과 다음 단계만 따라가면 됩니다. 등교 준비를 잔소리 없이 끝낼 수 있어요.</span>
           <span class="en">Yes. Parents preset the routine and dismiss method; kids just snap a photo and follow each step. School mornings, without the nagging.</span>
+      <span class="zh">可以。家长预设习惯和解除方式后，孩子只需拍张照片，按步骤完成。学校的早晨，再不用催促。</span>
+      <span class="ja">はい。保護者がルーティンと解除方法を設定すれば、子どもは写真を撮ってステップに沿って進むだけ。学校の朝、もう急かす必要はありません。</span>
         </div></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q">
-          <span><span class="ko">루틴은 몇 단계까지 만들 수 있나요?</span><span class="en">How many steps can a routine have?</span></span>
+          <span><span class="ko">루틴은 몇 단계까지 만들 수 있나요?</span><span class="en">How many steps can a routine have?</span>
+      <span class="zh">一个习惯最多可以有多少步？</span>
+      <span class="ja">ルーティンは何ステップまで設定できますか？</span></span>
           <span class="faq-toggle"></span>
         </button>
         <div class="faq-a"><div class="faq-a-inner">
           <span class="ko">한 루틴 안에 최대 20단계까지 자유롭게 추가할 수 있어요. 각 단계마다 다른 알림음과 진동 패턴을 지정할 수 있습니다.</span>
           <span class="en">Up to 20 steps per routine, each with its own sound and vibration pattern.</span>
+      <span class="zh">每个习惯最多 20 步，每步可单独设置铃声和振动模式。</span>
+      <span class="ja">1つのルーティンに最大20ステップまで。各ステップごとに音とバイブのパターンを指定できます。</span>
         </div></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q">
-          <span><span class="ko">유료 결제가 있나요?</span><span class="en">Is there a paid plan?</span></span>
+          <span><span class="ko">유료 결제가 있나요?</span><span class="en">Is there a paid plan?</span>
+      <span class="zh">有付费方案吗？</span>
+      <span class="ja">有料プランはありますか？</span></span>
           <span class="faq-toggle"></span>
         </button>
         <div class="faq-a"><div class="faq-a-inner">
           <span class="ko">기본 알람과 한 개의 루틴은 무료로 사용할 수 있어요. 다중 루틴, 사진 미션 무제한 등은 일회성 결제로 잠금 해제됩니다. 정기 구독은 없습니다.</span>
           <span class="en">The basic alarm and one routine are free. Multiple routines and unlimited photo missions unlock with a one-time purchase — no subscriptions.</span>
+      <span class="zh">基础闹钟和一个习惯免费使用。多个习惯、无限拍照任务等可通过一次性购买解锁——无订阅。</span>
+      <span class="ja">基本のアラームと1つのルーティンは無料です。複数ルーティンや無制限の写真ミッションは買い切り型で解放——サブスクはありません。</span>
         </div></div>
       </div>
     </div>
@@ -1412,20 +1552,28 @@
       <h2>
         <span class="ko">내일 아침은 다르게 시작해 보세요</span>
         <span class="en">Start tomorrow morning differently.</span>
+      <span class="zh">让明天的早晨与众不同。</span>
+      <span class="ja">明日の朝を、ちがう始まり方で。</span>
       </h2>
       <p>
         <span class="ko">15초 만에 첫 알람을 만들고, 일어날 수밖에 없는 환경을 세팅하세요.</span>
         <span class="en">Set your first alarm in 15 seconds — and design a morning you can't sleep through.</span>
+      <span class="zh">15秒设置首个闹钟，打造一个让你无法继续睡的早晨。</span>
+      <span class="ja">15秒で最初のアラームを設定し、寝過ごせない朝をデザインしましょう。</span>
       </p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
         <a class="btn btn-primary" href="https://apps.apple.com/us/app/shuttimer/id6761991860" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.365 1.43c0 1.14-.39 2.21-1.16 3.06-.78.87-2.06 1.55-3.13 1.46-.13-1.13.39-2.32 1.13-3.07.86-.86 2.27-1.52 3.16-1.45zM20.78 17.42c-.55 1.27-.81 1.84-1.52 2.96-.99 1.55-2.39 3.48-4.12 3.5-1.54.02-1.93-1.01-4.02-1-2.09.01-2.52 1.02-4.06 1-1.73-.02-3.06-1.77-4.05-3.32C.16 16.13-.16 11.07 1.6 8.4c1.26-1.91 3.24-3.03 5.11-3.03 1.9 0 3.1 1.04 4.67 1.04 1.53 0 2.46-1.05 4.66-1.05 1.67 0 3.43.91 4.69 2.48-4.12 2.26-3.45 8.15.05 9.58z"/></svg>
           <span class="ko">App Store에서 받기</span>
           <span class="en">Download on the App Store</span>
+      <span class="zh">在 App Store 下载</span>
+      <span class="ja">App Storeでダウンロード</span>
         </a>
         <a class="btn btn-ghost" href="#features">
           <span class="ko">다시 살펴보기</span>
           <span class="en">Take another look</span>
+      <span class="zh">再看一眼</span>
+      <span class="ja">もう一度見る</span>
         </a>
       </div>
     </div>
@@ -1442,39 +1590,49 @@
         </span>
         <div class="foot-co">
           <a href="index.html" style="text-decoration:none;color:inherit">AtticLab</a>
-          <small><span class="ko">작은 의식이 하루를 바꿉니다</span><span class="en">Small rituals, better days</span></small>
+          <small><span class="ko">작은 의식이 하루를 바꿉니다</span><span class="en">Small rituals, better days</span>
+      <span class="zh">小小仪式，更好的一天</span>
+      <span class="ja">小さな儀式が、よりよい日々を</span></small>
         </div>
       </div>
 
       <div class="foot-links">
-        <a href="privacy/"><span class="ko">개인정보 처리방침</span><span class="en">Privacy Policy</span></a>
-        <a href="#"><span class="ko">이용약관</span><span class="en">Terms</span></a>
+        <a href="privacy/"><span class="ko">개인정보 처리방침</span><span class="en">Privacy Policy</span>
+      <span class="zh">隐私政策</span>
+      <span class="ja">プライバシーポリシー</span></a>
+        <a href="#"><span class="ko">이용약관</span><span class="en">Terms</span>
+      <span class="zh">服务条款</span>
+      <span class="ja">利用規約</span></a>
         <a href="mailto:hwan4870a@gmail.com">Contact</a>
       </div>
     </div>
 
     <div class="foot-bottom">
-      <div>© 2026 AtticLab. <span class="ko">모든 권리 보유.</span><span class="en">All rights reserved.</span></div>
-      <div><span class="ko">대한민국에서 만들었습니다 🇰🇷</span><span class="en">Crafted in Korea 🇰🇷</span></div>
+      <div>© 2026 AtticLab. <span class="ko">모든 권리 보유.</span><span class="en">All rights reserved.</span>
+      <span class="zh">保留所有权利。</span>
+      <span class="ja">All rights reserved.</span></div>
+      <div><span class="ko">대한민국에서 만들었습니다 🇰🇷</span><span class="en">Crafted in Korea 🇰🇷</span>
+      <span class="zh">韩国精心打造 🇰🇷</span>
+      <span class="ja">韓国でつくられました 🇰🇷</span></div>
     </div>
   </div>
 </footer>
 
 <script>
-  // i18n toggle
+  // i18n
   const root = document.documentElement;
-  const savedLang = localStorage.getItem('shuttimer-lang') || 'en';
+  const supportedLangs = ['ko', 'en', 'zh', 'ja'];
+  const stored = localStorage.getItem('shuttimer-lang');
+  const savedLang = supportedLangs.includes(stored) ? stored : 'en';
   root.setAttribute('data-lang', savedLang);
   root.setAttribute('lang', savedLang);
-  document.querySelectorAll('[data-set-lang]').forEach(btn => {
-    if (btn.dataset.setLang === savedLang) btn.classList.add('active'); else btn.classList.remove('active');
-    btn.addEventListener('click', () => {
-      const lang = btn.dataset.setLang;
-      root.setAttribute('data-lang', lang);
-      root.setAttribute('lang', lang);
-      localStorage.setItem('shuttimer-lang', lang);
-      document.querySelectorAll('[data-set-lang]').forEach(b => b.classList.toggle('active', b === btn));
-    });
+  const langSelect = document.getElementById('langSelect');
+  langSelect.value = savedLang;
+  langSelect.addEventListener('change', () => {
+    const lang = langSelect.value;
+    root.setAttribute('data-lang', lang);
+    root.setAttribute('lang', lang);
+    localStorage.setItem('shuttimer-lang', lang);
   });
 
   // Theme toggle (auto detect + manual)
