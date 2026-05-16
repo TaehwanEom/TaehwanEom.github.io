@@ -3,10 +3,33 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>ShutTimer — 일어날 수밖에 없게 만드는 알람</title>
-<meta name="description" content="사진을 찍어야 꺼지는 알람과, 해제 직후 자동으로 시작되는 루틴 타이머. 시간 관리가 어려운 모든 사람을 위한 알람 앱." />
+<title>ShutTimer — The alarm you stand up for</title>
+<meta name="description" content="A camera-mission alarm and routine timer that fires the moment you dismiss it. For everyone who struggles with mornings." />
 <link rel="icon" type="image/png" href="assets/shuttimer-icon.png" />
 <link rel="apple-touch-icon" href="assets/shuttimer-icon.png" />
+
+<link rel="canonical" href="https://atticlab.app/shuttimer.html" />
+<link rel="alternate" hreflang="ko" href="https://atticlab.app/shuttimer.html" />
+<link rel="alternate" hreflang="en" href="https://atticlab.app/shuttimer.html" />
+<link rel="alternate" hreflang="zh-Hans" href="https://atticlab.app/shuttimer.html" />
+<link rel="alternate" hreflang="ja" href="https://atticlab.app/shuttimer.html" />
+<link rel="alternate" hreflang="x-default" href="https://atticlab.app/shuttimer.html" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="AtticLab" />
+<meta property="og:url" content="https://atticlab.app/shuttimer.html" />
+<meta property="og:title" content="ShutTimer — The alarm you stand up for" />
+<meta property="og:description" content="A camera-mission alarm and routine timer that fires the moment you dismiss it. For everyone who struggles with mornings." />
+<meta property="og:image" content="https://atticlab.app/assets/shuttimer-icon.png" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:locale:alternate" content="ko_KR" />
+<meta property="og:locale:alternate" content="zh_CN" />
+<meta property="og:locale:alternate" content="ja_JP" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="ShutTimer — The alarm you stand up for" />
+<meta name="twitter:description" content="A camera-mission alarm and routine timer that fires the moment you dismiss it. For everyone who struggles with mornings." />
+<meta name="twitter:image" content="https://atticlab.app/assets/shuttimer-icon.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1652,6 +1675,34 @@
   // i18n
   const root = document.documentElement;
   const supportedLangs = ['ko', 'en', 'zh', 'ja'];
+  const i18nMeta = {
+    ko: {
+      title: 'ShutTimer — 일어날 수밖에 없게 만드는 알람',
+      description: '사진을 찍어야 꺼지는 알람과, 해제 직후 자동으로 시작되는 루틴 타이머. 시간 관리가 어려운 모든 사람을 위한 알람 앱.',
+    },
+    en: {
+      title: 'ShutTimer — The alarm you stand up for',
+      description: 'A camera-mission alarm and routine timer that fires the moment you dismiss it. For everyone who struggles with mornings.',
+    },
+    zh: {
+      title: 'ShutTimer — 让你不得不起床的闹钟',
+      description: '必须拍照才能关闭的闹钟，与解除瞬间自动启动的习惯计时器。专为难以管理早晨的人设计。',
+    },
+    ja: {
+      title: 'ShutTimer — 起きるしかなくする目覚まし',
+      description: '写真ミッションで止める目覚ましと、解除直後に始まるルーティンタイマー。朝が苦手な人のためのアラームアプリ。',
+    },
+  };
+  function applyMeta(lang) {
+    const m = i18nMeta[lang] || i18nMeta.en;
+    document.title = m.title;
+    const desc = document.querySelector('meta[name="description"]');
+    if (desc) desc.setAttribute('content', m.description);
+    const ogt = document.querySelector('meta[property="og:title"]');
+    if (ogt) ogt.setAttribute('content', m.title);
+    const ogd = document.querySelector('meta[property="og:description"]');
+    if (ogd) ogd.setAttribute('content', m.description);
+  }
   function detectBrowserLang() {
     const langs = navigator.languages && navigator.languages.length
       ? navigator.languages
@@ -1666,12 +1717,14 @@
   const savedLang = supportedLangs.includes(stored) ? stored : detectBrowserLang();
   root.setAttribute('data-lang', savedLang);
   root.setAttribute('lang', savedLang);
+  applyMeta(savedLang);
   const langSelect = document.getElementById('langSelect');
   langSelect.value = savedLang;
   langSelect.addEventListener('change', () => {
     const lang = langSelect.value;
     root.setAttribute('data-lang', lang);
     root.setAttribute('lang', lang);
+    applyMeta(lang);
     localStorage.setItem('atticlab-lang', lang);
   });
 

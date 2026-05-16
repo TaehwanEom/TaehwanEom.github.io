@@ -7,6 +7,29 @@
 <meta name="description" content="AtticLab is a small indie studio crafting quiet, focused productivity apps. Makers of ShutTimer and more." />
 <meta name="theme-color" content="#ff2d3d" />
 
+<link rel="canonical" href="https://atticlab.app/" />
+<link rel="alternate" hreflang="ko" href="https://atticlab.app/" />
+<link rel="alternate" hreflang="en" href="https://atticlab.app/" />
+<link rel="alternate" hreflang="zh-Hans" href="https://atticlab.app/" />
+<link rel="alternate" hreflang="ja" href="https://atticlab.app/" />
+<link rel="alternate" hreflang="x-default" href="https://atticlab.app/" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="AtticLab" />
+<meta property="og:url" content="https://atticlab.app/" />
+<meta property="og:title" content="AtticLab — A small indie studio" />
+<meta property="og:description" content="AtticLab is a small indie studio crafting quiet, focused productivity apps. Makers of ShutTimer and more." />
+<meta property="og:image" content="https://atticlab.app/assets/shuttimer-icon.png" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:locale:alternate" content="ko_KR" />
+<meta property="og:locale:alternate" content="zh_CN" />
+<meta property="og:locale:alternate" content="ja_JP" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="AtticLab — A small indie studio" />
+<meta name="twitter:description" content="AtticLab is a small indie studio crafting quiet, focused productivity apps. Makers of ShutTimer and more." />
+<meta name="twitter:image" content="https://atticlab.app/assets/shuttimer-icon.png" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -693,6 +716,34 @@
 
   // i18n
   const supportedLangs = ['ko', 'en', 'zh', 'ja'];
+  const i18nMeta = {
+    ko: {
+      title: 'AtticLab — 다락방에서 시작된 작은 인디 스튜디오',
+      description: 'AtticLab은 일상에 도움이 되는 앱을 만드는 작은 인디 스튜디오입니다. ShutTimer 외 새로운 앱들을 준비 중입니다.',
+    },
+    en: {
+      title: 'AtticLab — A small indie studio',
+      description: 'AtticLab is a small indie studio crafting quiet, focused productivity apps. Makers of ShutTimer and more.',
+    },
+    zh: {
+      title: 'AtticLab — 始于阁楼的小型独立工作室',
+      description: 'AtticLab 是一家打造日常实用应用的小型独立工作室。除 ShutTimer 外，更多应用即将推出。',
+    },
+    ja: {
+      title: 'AtticLab — 屋根裏部屋発の小さなインディースタジオ',
+      description: 'AtticLabは日常に役立つアプリを作る小さなインディースタジオ。ShutTimerほか、新作も準備中です。',
+    },
+  };
+  function applyMeta(lang) {
+    const m = i18nMeta[lang] || i18nMeta.en;
+    document.title = m.title;
+    const desc = document.querySelector('meta[name="description"]');
+    if (desc) desc.setAttribute('content', m.description);
+    const ogt = document.querySelector('meta[property="og:title"]');
+    if (ogt) ogt.setAttribute('content', m.title);
+    const ogd = document.querySelector('meta[property="og:description"]');
+    if (ogd) ogd.setAttribute('content', m.description);
+  }
   function detectBrowserLang() {
     const langs = navigator.languages && navigator.languages.length
       ? navigator.languages
@@ -707,12 +758,14 @@
   const savedLang = supportedLangs.includes(stored) ? stored : detectBrowserLang();
   root.setAttribute('data-lang', savedLang);
   root.setAttribute('lang', savedLang);
+  applyMeta(savedLang);
   const langSelect = document.getElementById('langSelect');
   langSelect.value = savedLang;
   langSelect.addEventListener('change', () => {
     const lang = langSelect.value;
     root.setAttribute('data-lang', lang);
     root.setAttribute('lang', lang);
+    applyMeta(lang);
     localStorage.setItem('atticlab-lang', lang);
   });
 
