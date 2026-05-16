@@ -693,8 +693,18 @@
 
   // i18n
   const supportedLangs = ['ko', 'en', 'zh', 'ja'];
+  function detectBrowserLang() {
+    const langs = navigator.languages && navigator.languages.length
+      ? navigator.languages
+      : [navigator.language || 'en'];
+    for (const l of langs) {
+      const code = l.toLowerCase().split('-')[0];
+      if (supportedLangs.includes(code)) return code;
+    }
+    return 'en';
+  }
   const stored = localStorage.getItem('atticlab-lang');
-  const savedLang = supportedLangs.includes(stored) ? stored : 'en';
+  const savedLang = supportedLangs.includes(stored) ? stored : detectBrowserLang();
   root.setAttribute('data-lang', savedLang);
   root.setAttribute('lang', savedLang);
   const langSelect = document.getElementById('langSelect');
