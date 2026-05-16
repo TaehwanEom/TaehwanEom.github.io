@@ -1632,7 +1632,7 @@
     }
     return 'en';
   }
-  const stored = localStorage.getItem('shuttimer-lang');
+  const stored = localStorage.getItem('atticlab-lang');
   const savedLang = supportedLangs.includes(stored) ? stored : detectBrowserLang();
   root.setAttribute('data-lang', savedLang);
   root.setAttribute('lang', savedLang);
@@ -1642,12 +1642,12 @@
     const lang = langSelect.value;
     root.setAttribute('data-lang', lang);
     root.setAttribute('lang', lang);
-    localStorage.setItem('shuttimer-lang', lang);
+    localStorage.setItem('atticlab-lang', lang);
   });
 
   // Theme toggle (auto detect + manual)
   const themeBtn = document.getElementById('themeBtn');
-  const saved = localStorage.getItem('shuttimer-theme');
+  const saved = localStorage.getItem('atticlab-theme');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const initial = saved || (prefersDark ? 'dark' : 'light');
   root.setAttribute('data-theme', initial);
@@ -1656,7 +1656,7 @@
   themeBtn.addEventListener('click', () => {
     const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     root.setAttribute('data-theme', next);
-    localStorage.setItem('shuttimer-theme', next);
+    localStorage.setItem('atticlab-theme', next);
     updateThemeIcon(next);
   });
 
