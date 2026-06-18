@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
+<!doctype html>
+<html lang="ko" data-lang="ko">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -15,8 +15,7 @@
 
 <title>AtticLab — A small studio making quiet apps</title>
 <meta name="description" content="AtticLab builds quiet, focused apps. Makers of ShutTimer." />
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a0b" />
+<meta name="theme-color" content="#FFF8F0" />
 
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
 <link rel="icon" type="image/png" href="assets/favicon.png" />
@@ -38,8 +37,8 @@
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="AtticLab — A small studio making quiet apps" />
-<meta property="og:locale" content="en_US" />
-<meta property="og:locale:alternate" content="ko_KR" />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:locale:alternate" content="en_US" />
 <meta property="og:locale:alternate" content="zh_CN" />
 <meta property="og:locale:alternate" content="ja_JP" />
 
@@ -58,10 +57,7 @@
   "image": "https://atticlab.app/assets/og-card.png",
   "description": "AtticLab builds quiet, focused apps. Makers of ShutTimer.",
   "foundingDate": "2026",
-  "address": {
-    "@type": "PostalAddress",
-    "addressCountry": "KR"
-  },
+  "address": { "@type": "PostalAddress", "addressCountry": "KR" },
   "contactPoint": {
     "@type": "ContactPoint",
     "email": "hwan4870a@gmail.com",
@@ -71,144 +67,229 @@
 }
 </script>
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "AtticLab",
-  "url": "https://atticlab.app/",
-  "inLanguage": ["ko", "en", "zh-Hans", "ja"]
-}
+{ "@context": "https://schema.org", "@type": "WebSite", "name": "AtticLab", "url": "https://atticlab.app/", "inLanguage": ["ko", "en", "zh-Hans", "ja"] }
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 
 <style>
-  :root {
-    --bg: #ffffff;
-    --bg-soft: #f8f8fa;
-    --fg: #0a0a0b;
-    --fg-soft: #6b6b76;
-    --fg-mute: #a1a1ad;
-    --line: #ebebef;
-    --ease: cubic-bezier(.25,.1,.25,1);
+  :root{
+    --cream:#FFF8F0; --warm-light:#F5EDE4; --card:#FFFFFF;
+    --ink:#2C2C2C; --ink-soft:#6F665E; --ink-faint:#A89E94; --line:#ECE2D6;
+    --teal:#20B2AA; --teal-text:#0F6E62;
+    --sh-1:0 2px 6px rgba(120,92,64,.06),0 1px 2px rgba(120,92,64,.04);
+    --sh-2:0 10px 30px rgba(120,92,64,.10),0 3px 8px rgba(120,92,64,.06);
+    --sh-3:0 22px 50px rgba(120,92,64,.16),0 6px 14px rgba(120,92,64,.08);
+    --font-kr:'Pretendard',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+    --font-en:'Playfair Display',Georgia,serif;
+    --maxw:960px; --ease:cubic-bezier(0.16,1,0.3,1);
   }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
-  body {
-    font-family: 'Pretendard Variable', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--fg);
-    -webkit-font-smoothing: antialiased;
-    line-height: 1.6;
-  }
-  :lang(en), [lang="en"] {
-    font-family: 'Inter', 'Pretendard Variable', system-ui, sans-serif;
-    line-height: 1.5;
-  }
-  a { color: inherit; text-decoration: none; }
-  img { display: block; max-width: 100%; }
-
-  .container {
-    width: 100%;
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--font-kr);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased;letter-spacing:-.01em;}
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+  .en{font-family:var(--font-en);font-style:italic;}
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+  /* i18n */
+  [data-lang="ko"] .t-en,[data-lang="ko"] .t-zh,[data-lang="ko"] .t-ja{display:none;}
+  [data-lang="en"] .t-ko,[data-lang="en"] .t-zh,[data-lang="en"] .t-ja{display:none;}
+  [data-lang="zh"] .t-ko,[data-lang="zh"] .t-en,[data-lang="zh"] .t-ja{display:none;}
+  [data-lang="ja"] .t-ko,[data-lang="ja"] .t-en,[data-lang="ja"] .t-zh{display:none;}
+  .lang-select{font-family:var(--font-kr);font-size:13.5px;font-weight:600;color:var(--ink-soft);background:transparent;border:1px solid var(--line);border-radius:999px;padding:7px 11px;cursor:pointer;outline:none;}
+  .lang-select:hover{border-color:var(--ink-faint);color:var(--ink);}
   /* NAV */
-  .nav { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(12px); }
-  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; }
-  .brand { font-weight: 700; font-size: 15px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px; }
-  .brand-mark { width: 24px; height: 24px; background: var(--fg); border-radius: 6px; display: grid; place-items: center; }
-  .brand-mark svg { width: 14px; height: 14px; stroke: var(--bg); fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
-
+  .nav{position:sticky;top:0;z-index:50;background:color-mix(in oklab,var(--cream),transparent 12%);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line);}
+  .nav .row{display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .nav .mark{font-family:var(--font-en);font-style:italic;font-size:20px;font-weight:600;color:var(--ink);}
   /* HERO */
-  .hero { padding: 120px 0 80px; text-align: center; }
-  .wordmark { font-size: clamp(44px, 7vw, 80px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; margin: 0; }
-  .hero-tag { margin-top: 20px; font-size: clamp(17px, 2vw, 20px); color: var(--fg-soft); max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.5; font-weight: 400; }
-
+  .hero{padding:clamp(96px,15vw,150px) 0 clamp(70px,10vw,110px);text-align:center;}
+  .wordmark{font-family:var(--font-en);font-style:italic;font-weight:600;font-size:clamp(56px,11vw,108px);line-height:1;letter-spacing:-.01em;margin:0;color:var(--ink);}
+  .hero-tag{margin:22px auto 0;font-size:clamp(17px,2.2vw,20px);font-weight:500;color:var(--ink-soft);max-width:30ch;line-height:1.5;}
   /* APPS */
-  section { padding: 80px 0; }
-  .sec-title { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-mute); margin: 0 0 32px; }
-  .apps { display: flex; flex-direction: column; gap: 12px; max-width: 600px; margin: 0 auto; }
-  .app-card { display: flex; align-items: center; gap: 16px; padding: 20px; border: 1px solid var(--line); border-radius: 16px; transition: border-color .2s var(--ease), box-shadow .2s var(--ease); }
-  .app-card:hover { border-color: var(--fg); box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
-  .app-icon { width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0; background: var(--fg); }
-  .app-info { flex: 1; min-width: 0; }
-  .app-name { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
-  .app-desc { font-size: 14px; color: var(--fg-soft); margin-top: 2px; line-height: 1.4; }
-  .app-arrow { color: var(--fg-mute); flex-shrink: 0; transition: transform .2s var(--ease); }
-  .app-arrow svg { width: 16px; height: 16px; }
-  .app-card:hover .app-arrow { transform: translateX(4px); color: var(--fg); }
-
-  .coming { text-align: center; margin-top: 40px; font-size: 14px; color: var(--fg-mute); }
-
+  .apps-sec{padding:0 0 clamp(72px,11vw,120px);}
+  .sec-title{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--teal-text);margin:0 0 26px;text-align:center;}
+  .apps{display:flex;flex-direction:column;gap:14px;max-width:620px;margin:0 auto;}
+  .app-card{display:flex;align-items:center;gap:18px;padding:22px 24px;background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--sh-1);transition:transform .2s var(--ease),box-shadow .2s var(--ease);}
+  .app-card:hover{transform:translateY(-3px);box-shadow:var(--sh-2);}
+  .app-icon{width:52px;height:52px;border-radius:14px;flex-shrink:0;box-shadow:var(--sh-1);}
+  .app-info{flex:1;min-width:0;}
+  .app-name{font-size:18px;font-weight:700;letter-spacing:-.01em;color:var(--ink);}
+  .app-desc{font-size:14px;color:var(--ink-soft);margin-top:3px;line-height:1.45;}
+  .app-arrow{color:var(--ink-faint);flex-shrink:0;transition:transform .2s var(--ease),color .2s var(--ease);}
+  .app-arrow svg{width:18px;height:18px;}
+  .app-card:hover .app-arrow{transform:translateX(4px);color:var(--teal-text);}
+  .coming{text-align:center;margin-top:34px;font-size:14px;color:var(--ink-faint);}
   /* FOOTER */
-  footer { padding: 48px 0 64px; border-top: 1px solid var(--line); }
-  .foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--fg-mute); }
-  .foot-links { display: flex; gap: 24px; }
-  .foot-links a:hover { color: var(--fg); }
-
-  @media (max-width: 600px) {
-    .hero { padding: 80px 0 48px; }
-    section { padding: 48px 0; }
-  }
+  footer{border-top:1px solid var(--line);}
+  footer .foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:34px 0 56px;}
+  footer .fbrand{font-family:var(--font-en);font-style:italic;font-size:16px;color:var(--ink);}
+  footer .foot-links{display:flex;gap:24px;font-size:14px;color:var(--ink-soft);}
+  footer .foot-links a:hover,footer .foot-links button:hover{color:var(--ink);}
+  footer .flink-btn{font:inherit;font-size:14px;background:none;border:0;padding:0;cursor:pointer;color:var(--ink-soft);}
+  /* CONTACT MODAL */
+  .modal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:20px;}
+  .modal[aria-hidden="false"]{display:flex;}
+  .modal-backdrop{position:absolute;inset:0;background:rgba(40,30,20,.45);}
+  .modal-panel{position:relative;width:min(440px,100%);background:var(--card);border-radius:22px;box-shadow:var(--sh-3);padding:26px;animation:modal-pop .2s var(--ease);}
+  @keyframes modal-pop{from{opacity:0;transform:translateY(10px) scale(.98);}to{opacity:1;transform:none;}}
+  .modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+  .modal-title{font-family:var(--font-kr);font-size:20px;font-weight:700;color:var(--ink);margin:0;}
+  .modal-close{width:34px;height:34px;border:0;background:var(--warm-light);border-radius:10px;display:grid;place-items:center;color:var(--ink-soft);cursor:pointer;}
+  .modal-close:hover{background:var(--line);color:var(--ink);}
+  .modal-close svg{width:18px;height:18px;}
+  .modal-form .field{display:block;margin-bottom:16px;}
+  .field-label{display:block;font-size:13px;font-weight:600;color:var(--ink-soft);margin-bottom:7px;}
+  .modal-form input[type=email],.modal-form textarea{width:100%;font-family:var(--font-kr);font-size:15px;color:var(--ink);background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:12px 14px;outline:none;transition:border-color .15s var(--ease);}
+  .modal-form input[type=email]:focus,.modal-form textarea:focus{border-color:var(--teal-text);}
+  .modal-form textarea{resize:vertical;}
+  .honeypot{position:absolute;left:-9999px;}
+  .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:8px;}
+  .btn-modal{font-family:var(--font-kr);font-size:15px;font-weight:600;padding:12px 20px;border-radius:12px;border:0;cursor:pointer;}
+  .btn-modal-ghost{background:var(--warm-light);color:var(--ink-soft);}
+  .btn-modal-ghost:hover{background:var(--line);}
+  .btn-modal-primary{background:var(--teal-text);color:#fff;}
+  .btn-modal-primary:hover{filter:brightness(1.08);}
+  .btn-modal:disabled{opacity:.6;cursor:not-allowed;}
+  .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-size:14px;font-weight:500;padding:13px 20px;border-radius:12px;box-shadow:var(--sh-3);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:120;max-width:90%;text-align:center;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .toast.error{background:#C0392B;}
+  @media(max-width:480px){.wrap{padding:0 18px;}}
 </style>
 </head>
 <body>
 
-<nav class="nav">
-  <div class="container nav-inner">
-    <a href="#" class="brand" aria-label="AtticLab">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg>
-      </span>
-      AtticLab
-    </a>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="container">
-    <h1 class="wordmark">AtticLab</h1>
-    <p class="hero-tag">A small studio making quiet, focused apps.</p>
+<header class="nav">
+  <div class="wrap row">
+    <a href="#" class="mark" aria-label="AtticLab">AtticLab</a>
+    <select class="lang-select" id="langSelect" aria-label="Language"><option value="ko">한국어</option><option value="en">English</option><option value="zh">中文</option><option value="ja">日本語</option></select>
   </div>
 </header>
 
-<section>
-  <div class="container">
-    <h2 class="sec-title">Our apps</h2>
+<header class="hero">
+  <div class="wrap">
+    <h1 class="wordmark">AtticLab</h1>
+    <p class="hero-tag"><span class="t-ko">조용하고 집중된 앱을 만드는 작은 스튜디오.</span><span class="t-en">A small studio making quiet, focused apps.</span><span class="t-zh">一家打造安静、专注应用的小工作室。</span><span class="t-ja">静かで集中できるアプリをつくる小さなスタジオ。</span></p>
+  </div>
+</header>
+
+<section class="apps-sec">
+  <div class="wrap">
+    <h2 class="sec-title"><span class="t-ko">우리 앱</span><span class="t-en">Our apps</span><span class="t-zh">我们的应用</span><span class="t-ja">プロダクト</span></h2>
     <div class="apps">
       <a class="app-card" href="shuttimer.html">
-        <img class="app-icon" src="assets/shuttimer-icon.png" alt="ShutTimer" width="48" height="48" />
+        <img class="app-icon" src="assets/shuttimer-icon.png" alt="ShutTimer" width="52" height="52" />
         <div class="app-info">
           <div class="app-name">ShutTimer</div>
-          <div class="app-desc">The alarm that gets you up. Photo-mission alarm + auto routine.</div>
+          <div class="app-desc"><span class="t-ko">일어날 수밖에 없는 알람. 사진 미션 알람 + 자동 루틴.</span><span class="t-en">The alarm that gets you up. Photo-mission alarm + auto routine.</span><span class="t-zh">让你不得不起床的闹钟。拍照任务闹钟 + 自动流程。</span><span class="t-ja">起きるしかない目覚まし。写真ミッションアラーム + 自動ルーティン。</span></div>
         </div>
         <span class="app-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
       </a>
     </div>
-    <p class="coming">More on the way.</p>
+    <p class="coming"><span class="t-ko">더 많은 앱이 준비 중입니다.</span><span class="t-en">More on the way.</span><span class="t-zh">更多应用即将推出。</span><span class="t-ja">続々と準備中です。</span></p>
   </div>
 </section>
 
 <footer>
-  <div class="container foot">
-    <span>&copy; 2026 AtticLab</span>
+  <div class="wrap foot">
+    <span class="fbrand">© 2026 AtticLab</span>
     <div class="foot-links">
-      <a href="privacy/">Privacy</a>
-      <a href="mailto:hwan4870a@gmail.com">Contact</a>
+      <a href="privacy/"><span class="t-ko">개인정보 처리방침</span><span class="t-en">Privacy</span><span class="t-zh">隐私政策</span><span class="t-ja">プライバシー</span></a>
+      <button type="button" id="contactBtn" class="flink-btn"><span class="t-ko">문의</span><span class="t-en">Contact</span><span class="t-zh">联系</span><span class="t-ja">お問い合わせ</span></button>
     </div>
   </div>
 </footer>
 
+<!-- CONTACT MODAL -->
+<div class="modal" id="contactModal" aria-hidden="true" role="dialog" aria-labelledby="contactModalTitle" aria-modal="true">
+  <div class="modal-backdrop" data-modal-close></div>
+  <div class="modal-panel" role="document">
+    <div class="modal-head">
+      <h3 id="contactModalTitle" class="modal-title"><span class="t-ko">문의하기</span><span class="t-en">Contact</span><span class="t-zh">联系</span><span class="t-ja">お問い合わせ</span></h3>
+      <button class="modal-close" type="button" aria-label="Close" data-modal-close>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <form id="contactForm" class="modal-form" novalidate>
+      <input type="hidden" name="access_key" value="f207ac72-6f25-454f-a89b-3846017776f1" />
+      <input type="hidden" name="subject" value="AtticLab Contact — new message" />
+      <input type="hidden" name="from_name" value="AtticLab" />
+      <input type="checkbox" name="botcheck" class="honeypot" tabindex="-1" autocomplete="off" />
+      <label class="field">
+        <span class="field-label"><span class="t-ko">이메일</span><span class="t-en">Email</span><span class="t-zh">邮箱</span><span class="t-ja">メール</span></span>
+        <input type="email" name="email" required autocomplete="email" id="contactEmail" />
+      </label>
+      <label class="field">
+        <span class="field-label"><span class="t-ko">내용</span><span class="t-en">Message</span><span class="t-zh">内容</span><span class="t-ja">内容</span></span>
+        <textarea name="message" rows="5" required id="contactMessage"></textarea>
+      </label>
+      <div class="modal-actions">
+        <button type="button" class="btn-modal btn-modal-ghost" data-modal-close><span class="t-ko">취소</span><span class="t-en">Cancel</span><span class="t-zh">取消</span><span class="t-ja">キャンセル</span></button>
+        <button type="submit" class="btn-modal btn-modal-primary" id="contactSubmit"><span class="t-ko">보내기</span><span class="t-en">Send</span><span class="t-zh">发送</span><span class="t-ja">送信</span></button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script>
-const root = document.documentElement;
-const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-if (prefersDark) root.setAttribute('data-theme', 'dark');
+(function(){
+  var root=document.documentElement;
+  var sel=document.getElementById('langSelect');
+  var META={
+    ko:{title:'AtticLab — 조용한 앱을 만드는 작은 스튜디오',desc:'AtticLab는 조용하고 집중된 앱을 만듭니다. ShutTimer를 만든 팀.'},
+    en:{title:'AtticLab — A small studio making quiet apps',desc:'AtticLab builds quiet, focused apps. Makers of ShutTimer.'},
+    zh:{title:'AtticLab — 打造安静应用的小工作室',desc:'AtticLab 打造安静、专注的应用。ShutTimer 的开发团队。'},
+    ja:{title:'AtticLab — 静かなアプリをつくる小さなスタジオ',desc:'AtticLab は静かで集中できるアプリをつくります。ShutTimer の開発チーム。'}
+  };
+  function apply(lang){
+    if(!META[lang])lang='en';
+    root.setAttribute('data-lang',lang);
+    root.setAttribute('lang',lang==='zh'?'zh-Hans':lang);
+    document.title=META[lang].title;
+    var d=document.querySelector('meta[name="description"]');
+    if(d)d.setAttribute('content',META[lang].desc);
+    try{localStorage.setItem('atticlab-lang',lang);}catch(e){}
+    if(sel)sel.value=lang;
+  }
+  function detect(){
+    var langs=(navigator.languages&&navigator.languages.length)?navigator.languages:[navigator.language||'en'];
+    for(var i=0;i<langs.length;i++){var code=langs[i].toLowerCase().split('-')[0];if(META[code])return code;}
+    return 'en';
+  }
+  var saved;try{saved=localStorage.getItem('atticlab-lang');}catch(e){}
+  apply((saved&&META[saved])?saved:detect());
+  if(sel)sel.addEventListener('change',function(){apply(sel.value);});
+})();
+(function(){
+  var btn=document.getElementById('contactBtn');
+  var modal=document.getElementById('contactModal');
+  var form=document.getElementById('contactForm');
+  var submit=document.getElementById('contactSubmit');
+  var toastEl=document.getElementById('toast');
+  if(!btn||!modal||!form)return;
+  function open(){modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';setTimeout(function(){var e=document.getElementById('contactEmail');if(e)e.focus();},60);}
+  function close(){modal.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+  function toast(msg,type){toastEl.textContent=msg;toastEl.classList.toggle('error',type==='error');toastEl.classList.add('show');setTimeout(function(){toastEl.classList.remove('show');},4500);}
+  var TM={success:{ko:'메시지가 전송됐어요. 24시간 내 답장드릴게요.',en:"Message sent. We'll reply within 24h.",zh:'消息已发送，我们会在 24 小时内回复。',ja:'メッセージを送信しました。24時間以内に返信します。'},error:{ko:'전송에 실패했어요. 잠시 후 다시 시도해주세요.',en:'Failed to send. Please try again.',zh:'发送失败，请稍后重试。',ja:'送信に失敗しました。しばらくしてから再度お試しください。'}};
+  function TMSG(t){var l=document.documentElement.getAttribute('data-lang')||'en';return TM[t][l]||TM[t].en;}
+  btn.addEventListener('click',open);
+  modal.querySelectorAll('[data-modal-close]').forEach(function(el){el.addEventListener('click',close);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.getAttribute('aria-hidden')==='false')close();});
+  form.addEventListener('submit',async function(e){
+    e.preventDefault();submit.disabled=true;
+    try{
+      var res=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)});
+      var json=await res.json();
+      if(json.success){form.reset();close();toast(TMSG('success'),'success');}
+      else{throw new Error(json.message||'send failed');}
+    }catch(err){toast(TMSG('error'),'error');}
+    finally{submit.disabled=false;}
+  });
+})();
 </script>
 
 </body>
