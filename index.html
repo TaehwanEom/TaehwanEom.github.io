@@ -123,10 +123,13 @@
   .phone .screen{width:100%;height:100%;border-radius:35px;overflow:hidden;background:var(--cream);display:flex;flex-direction:column;}
   .phone .notch{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:98px;height:27px;background:#1c1c1e;border-radius:14px;z-index:5;}
   /* HERO PHONE — 스크린샷 슬라이드 */
-  .slides{display:flex;width:500%;height:100%;flex:none;animation:phoneSlides 9s infinite;will-change:transform;backface-visibility:hidden;}
-  .slides img{width:20%;height:100%;object-fit:cover;display:block;}
-  @keyframes phoneSlides{0%,15%{transform:translate3d(0,0,0);}20%,35%{transform:translate3d(-20%,0,0);}40%,55%{transform:translate3d(-40%,0,0);}60%,75%{transform:translate3d(-60%,0,0);}80%,100%{transform:translate3d(-80%,0,0);}}
-  @media(prefers-reduced-motion:reduce){.slides{animation:none;}}
+  .slides{position:relative;width:100%;height:100%;}
+  .slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:fadeSlides 12s infinite;will-change:opacity;}
+  .slides img:nth-child(2){animation-delay:3s;}
+  .slides img:nth-child(3){animation-delay:6s;}
+  .slides img:nth-child(4){animation-delay:9s;}
+  @keyframes fadeSlides{0%{opacity:0;}4%{opacity:1;}25%{opacity:1;}29%{opacity:0;}100%{opacity:0;}}
+  @media(prefers-reduced-motion:reduce){.slides img{animation:none;opacity:0;}.slides img:first-child{opacity:1;}}
   /* ABOUT */
   .pad{padding:clamp(68px,10vw,118px) 0;}
   .about{background:var(--warm-light);}
@@ -327,10 +330,9 @@
           <div class="screen">
             <div class="slides">
               <img src="assets/IMG_4016.PNG" alt="ShutTimer app screen" />
-              <img src="assets/IMG_4020.PNG" alt="ShutTimer app screen" />
-              <img src="assets/IMG_4048.PNG" alt="ShutTimer app screen" />
-              <img src="assets/IMG_4067.PNG" alt="ShutTimer app screen" />
-              <img src="assets/IMG_4016.PNG" alt="" aria-hidden="true" />
+              <img src="assets/IMG_4020.PNG" alt="" aria-hidden="true" />
+              <img src="assets/IMG_4048.PNG" alt="" aria-hidden="true" />
+              <img src="assets/IMG_4067.PNG" alt="" aria-hidden="true" />
             </div>
           </div>
         </div>
