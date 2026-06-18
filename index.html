@@ -12,9 +12,10 @@
   gtag('js', new Date());
   gtag('config', 'G-VGCMWGWGJ9');
 </script>
-<title>AtticLab — A small indie studio</title>
-<meta name="description" content="AtticLab is a small indie studio crafting quiet, focused productivity apps. Makers of ShutTimer and more." />
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f6f3" />
+
+<title>AtticLab — A small studio making quiet apps</title>
+<meta name="description" content="AtticLab builds quiet, focused apps. Makers of ShutTimer." />
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a0b" />
 
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
@@ -31,20 +32,20 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="AtticLab" />
 <meta property="og:url" content="https://atticlab.app/" />
-<meta property="og:title" content="AtticLab — A small indie studio" />
-<meta property="og:description" content="AtticLab is a small indie studio crafting quiet, focused productivity apps. Makers of ShutTimer and more." />
+<meta property="og:title" content="AtticLab — A small studio making quiet apps" />
+<meta property="og:description" content="AtticLab builds quiet, focused apps. Makers of ShutTimer." />
 <meta property="og:image" content="https://atticlab.app/assets/og-card.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="AtticLab — A small indie studio" />
+<meta property="og:image:alt" content="AtticLab — A small studio making quiet apps" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:locale:alternate" content="ko_KR" />
 <meta property="og:locale:alternate" content="zh_CN" />
 <meta property="og:locale:alternate" content="ja_JP" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="AtticLab — A small indie studio" />
-<meta name="twitter:description" content="AtticLab is a small indie studio crafting quiet, focused productivity apps. Makers of ShutTimer and more." />
+<meta name="twitter:title" content="AtticLab — A small studio making quiet apps" />
+<meta name="twitter:description" content="AtticLab builds quiet, focused apps. Makers of ShutTimer." />
 <meta name="twitter:image" content="https://atticlab.app/assets/og-card.png" />
 
 <script type="application/ld+json">
@@ -55,7 +56,7 @@
   "url": "https://atticlab.app/",
   "logo": "https://atticlab.app/assets/favicon.png",
   "image": "https://atticlab.app/assets/og-card.png",
-  "description": "A small indie studio that builds quiet, focused productivity apps. Makers of ShutTimer and more.",
+  "description": "AtticLab builds quiet, focused apps. Makers of ShutTimer.",
   "foundingDate": "2026",
   "address": {
     "@type": "PostalAddress",
@@ -81,1066 +82,133 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet" />
 
 <style>
   :root {
-    --bg: #f7f6f3;
-    --bg-soft: #efede8;
-    --bg-elev: #ffffff;
+    --bg: #ffffff;
+    --bg-soft: #f8f8fa;
     --fg: #0a0a0b;
-    --fg-soft: #4a4a52;
-    --fg-mute: #8a8a93;
-    --line: #e3e1da;
-    --line-strong: #cfccc1;
-    --red: #ff2d3d;
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-md: 0 12px 32px -10px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.04);
-    --shadow-lg: 0 30px 60px -20px rgba(0,0,0,0.18);
-    --ease: cubic-bezier(.2,.7,.2,1);
+    --fg-soft: #6b6b76;
+    --fg-mute: #a1a1ad;
+    --line: #ebebef;
+    --ease: cubic-bezier(.25,.1,.25,1);
   }
-  [data-theme="dark"] {
-    --bg: #0a0a0b;
-    --bg-soft: #131316;
-    --bg-elev: #17171b;
-    --fg: #f7f7f8;
-    --fg-soft: #c2c2cb;
-    --fg-mute: #7a7a85;
-    --line: #232328;
-    --line-strong: #2e2e35;
-    --red: #ff3a48;
-  }
-
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
   body {
-    font-family: 'Pretendard Variable', Pretendard, 'Inter', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', system-ui, sans-serif;
+    font-family: 'Pretendard Variable', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
     background: var(--bg);
     color: var(--fg);
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    line-height: 1.55;
-    letter-spacing: -0.01em;
-    transition: background-color .25s var(--ease), color .25s var(--ease);
+    line-height: 1.6;
   }
   :lang(en), [lang="en"] {
-    font-family: 'Inter', 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-family: 'Inter', 'Pretendard Variable', system-ui, sans-serif;
+    line-height: 1.5;
   }
   a { color: inherit; text-decoration: none; }
-  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
-  img, svg { display: block; max-width: 100%; }
+  img { display: block; max-width: 100%; }
 
   .container {
     width: 100%;
-    max-width: 1160px;
+    max-width: 960px;
     margin: 0 auto;
     padding: 0 24px;
   }
 
-  /* ---------- NAV ---------- */
-  .nav {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: color-mix(in srgb, var(--bg) 80%, transparent);
-    backdrop-filter: saturate(180%) blur(14px);
-    -webkit-backdrop-filter: saturate(180%) blur(14px);
-    border-bottom: 1px solid transparent;
-    transition: border-color .2s var(--ease);
-  }
-  .nav.scrolled { border-bottom-color: var(--line); }
-  .nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 64px;
-  }
-  .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 700;
-    letter-spacing: -0.025em;
-    font-size: 17px;
-  }
-  .brand-mark {
-    width: 32px; height: 32px;
-    border-radius: 8px;
-    background: var(--fg);
-    color: var(--bg);
-    display: grid;
-    place-items: center;
-  }
-  .brand-mark svg { width: 24px; height: 24px; }
+  /* NAV */
+  .nav { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(12px); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .brand { font-weight: 700; font-size: 15px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px; }
+  .brand-mark { width: 24px; height: 24px; background: var(--fg); border-radius: 6px; display: grid; place-items: center; }
+  .brand-mark svg { width: 14px; height: 14px; stroke: var(--bg); fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 
-  .icon-btn {
-    width: 38px; height: 38px;
-    border-radius: 999px;
-    display: grid; place-items: center;
-    color: var(--fg-soft);
-    transition: background .15s var(--ease);
-  }
-  .icon-btn:hover { background: var(--bg-soft); }
-  .icon-btn svg { width: 18px; height: 18px; }
+  /* HERO */
+  .hero { padding: 120px 0 80px; text-align: center; }
+  .wordmark { font-size: clamp(44px, 7vw, 80px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; margin: 0; }
+  .hero-tag { margin-top: 20px; font-size: clamp(17px, 2vw, 20px); color: var(--fg-soft); max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.5; font-weight: 400; }
 
-  .nav-actions { display: flex; align-items: center; gap: 4px; }
-  .lang-select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-color: var(--bg-soft);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 7px 30px 7px 14px;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--fg);
-    cursor: pointer;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238a8a93' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 12px;
-    transition: border-color .15s var(--ease), background-color .15s var(--ease);
-  }
-  .lang-select:hover { border-color: var(--line-strong); }
-  .lang-select:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
-
-  /* ---------- I18N ---------- */
-  [data-lang="ko"] .en, [data-lang="ko"] .zh, [data-lang="ko"] .ja { display: none; }
-  [data-lang="en"] .ko, [data-lang="en"] .zh, [data-lang="en"] .ja { display: none; }
-  [data-lang="zh"] .ko, [data-lang="zh"] .en, [data-lang="zh"] .ja { display: none; }
-  [data-lang="ja"] .ko, [data-lang="ja"] .en, [data-lang="ja"] .zh { display: none; }
-  :lang(zh), [lang="zh"] {
-    font-family: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', 'Pretendard Variable', sans-serif;
-  }
-  :lang(ja), [lang="ja"] {
-    font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', 'Pretendard Variable', sans-serif;
-  }
-
-  /* ---------- HERO ---------- */
-  .hero {
-    padding: 80px 0 56px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: "";
-    position: absolute;
-    width: 700px; height: 700px;
-    border-radius: 50%;
-    background: radial-gradient(closest-side, color-mix(in srgb, var(--red) 8%, transparent), transparent 70%);
-    top: -250px; left: 50%;
-    transform: translateX(-50%);
-    pointer-events: none;
-    z-index: 0;
-  }
-  .hero-inner { position: relative; z-index: 1; }
-
-  .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px 6px 10px;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: var(--bg-elev);
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--fg-soft);
-    margin-bottom: 28px;
-    box-shadow: var(--shadow-sm);
-    letter-spacing: 0;
-  }
-  .eyebrow .dot {
-    width: 7px; height: 7px;
-    background: var(--red);
-    border-radius: 50%;
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--red) 18%, transparent);
-    animation: pulse 1.8s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--red) 18%, transparent); }
-    50% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--red) 6%, transparent); }
-  }
-
-  .wordmark {
-    font-size: clamp(56px, 11vw, 128px);
-    font-weight: 800;
-    line-height: 0.95;
-    letter-spacing: -0.055em;
-    margin: 0;
-  }
-  .wordmark .lab {
-    font-weight: 800;
-    color: var(--red);
-  }
-
-  .hero-tag {
-    margin: 24px auto 0;
-    font-size: clamp(18px, 2.4vw, 22px);
-    font-weight: 500;
-    color: var(--fg-soft);
-    max-width: 620px;
-    line-height: 1.4;
-    letter-spacing: -0.015em;
-    text-wrap: balance;
-  }
-  .hero-sub {
-    color: var(--fg-mute);
-    font-size: 15px;
-    max-width: 460px;
-    margin: 16px auto 0;
-    text-wrap: pretty;
-  }
-
-  /* ---------- SECTION ---------- */
-  section { padding: 64px 0; }
-  .sec-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 28px;
-    flex-wrap: wrap;
-  }
-  .sec-title {
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: -0.025em;
-    margin: 0;
-  }
-  .sec-meta {
-    font-size: 12px;
-    color: var(--fg-mute);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-  }
-
-  /* ---------- APP CARDS ---------- */
-  .apps {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-  }
-  .app-card {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    background: var(--bg-elev);
-    border: 1px solid var(--line);
-    border-radius: 18px;
-    padding: 18px;
-    transition: transform .2s var(--ease), border-color .2s var(--ease), box-shadow .2s var(--ease);
-    position: relative;
-  }
-  .app-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--line-strong);
-    box-shadow: var(--shadow-md);
-  }
-  .app-card.live:hover { border-color: var(--red); }
-  .app-icon {
-    width: 56px; height: 56px;
-    border-radius: 14px;
-    flex-shrink: 0;
-    object-fit: cover;
-    background: #0a0a0b;
-  }
+  /* APPS */
+  section { padding: 80px 0; }
+  .sec-title { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-mute); margin: 0 0 32px; }
+  .apps { display: flex; flex-direction: column; gap: 12px; max-width: 600px; margin: 0 auto; }
+  .app-card { display: flex; align-items: center; gap: 16px; padding: 20px; border: 1px solid var(--line); border-radius: 16px; transition: border-color .2s var(--ease), box-shadow .2s var(--ease); }
+  .app-card:hover { border-color: var(--fg); box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+  .app-icon { width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0; background: var(--fg); }
   .app-info { flex: 1; min-width: 0; }
-  .app-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 4px;
-  }
-  .app-name {
-    font-size: 17px;
-    font-weight: 700;
-    letter-spacing: -0.015em;
-    color: var(--fg);
-  }
-  .app-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 2px 8px;
-    border-radius: 999px;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    background: color-mix(in srgb, var(--red) 12%, transparent);
-    color: var(--red);
-  }
-  .app-status::before {
-    content: "";
-    width: 5px; height: 5px;
-    background: var(--red);
-    border-radius: 50%;
-  }
-  .app-status.soon {
-    background: var(--bg-soft);
-    color: var(--fg-mute);
-  }
-  .app-status.soon::before { background: var(--fg-mute); }
-  .app-desc {
-    font-size: 13px;
-    color: var(--fg-soft);
-    line-height: 1.45;
-  }
-  .app-arrow {
-    color: var(--fg-mute);
-    transition: transform .2s var(--ease), color .2s var(--ease);
-    flex-shrink: 0;
-  }
-  .app-arrow svg { width: 18px; height: 18px; }
-  .app-card:hover .app-arrow {
-    transform: translateX(3px);
-    color: var(--red);
-  }
+  .app-name { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+  .app-desc { font-size: 14px; color: var(--fg-soft); margin-top: 2px; line-height: 1.4; }
+  .app-arrow { color: var(--fg-mute); flex-shrink: 0; transition: transform .2s var(--ease); }
+  .app-arrow svg { width: 16px; height: 16px; }
+  .app-card:hover .app-arrow { transform: translateX(4px); color: var(--fg); }
 
-  /* coming-soon variant */
-  .app-card.soon {
-    background: transparent;
-    border-style: dashed;
-    cursor: default;
-  }
-  .app-card.soon:hover { transform: none; box-shadow: none; border-color: var(--line-strong); }
-  .app-card.soon .placeholder-icon {
-    width: 56px; height: 56px;
-    border-radius: 14px;
-    background: var(--bg-soft);
-    border: 1px dashed var(--line-strong);
-    display: grid;
-    place-items: center;
-    color: var(--fg-mute);
-    font-weight: 700;
-    font-size: 22px;
-    flex-shrink: 0;
-  }
-  .app-card.soon .app-name { color: var(--fg-mute); }
-  .app-card.soon .app-arrow { display: none; }
+  .coming { text-align: center; margin-top: 40px; font-size: 14px; color: var(--fg-mute); }
 
-  /* ---------- MANIFESTO ---------- */
-  .manifesto {
-    background: var(--bg-soft);
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-  }
-  .mani-quote {
-    font-size: clamp(22px, 3vw, 30px);
-    font-weight: 600;
-    line-height: 1.35;
-    letter-spacing: -0.02em;
-    margin: 0 0 28px;
-    text-wrap: balance;
-    max-width: 720px;
-  }
-  .mani-quote .red { color: var(--red); }
-  .principles {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    border-top: 1px solid var(--line);
-    margin-top: 24px;
-  }
-  .principle {
-    padding: 20px 18px 6px 0;
-    border-right: 1px solid var(--line);
-  }
-  .principle:last-child { border-right: 0; }
-  .principle-num {
-    font-size: 11px;
-    color: var(--red);
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    margin-bottom: 8px;
-  }
-  .principle-text {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--fg);
-    line-height: 1.4;
-  }
+  /* FOOTER */
+  footer { padding: 48px 0 64px; border-top: 1px solid var(--line); }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--fg-mute); }
+  .foot-links { display: flex; gap: 24px; }
+  .foot-links a:hover { color: var(--fg); }
 
-  /* ---------- CONTACT ROW ---------- */
-  .contact-row {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-  .link-btn {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 16px 20px;
-    background: var(--bg-elev);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    font-weight: 600;
-    font-size: 14px;
-    color: var(--fg);
-    transition: border-color .15s var(--ease), background .15s var(--ease);
-  }
-  .link-btn:hover { border-color: var(--fg); }
-  .link-btn .label-row {
-    display: flex; flex-direction: column; gap: 2px; text-align: left;
-  }
-  .link-btn .label-row small {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--fg-mute);
-  }
-  .link-btn svg {
-    width: 14px; height: 14px;
-    color: var(--fg-mute);
-    transition: color .15s var(--ease), transform .15s var(--ease);
-  }
-  .link-btn:hover svg { color: var(--red); transform: translateX(3px); }
-
-  /* ---------- FOOTER ---------- */
-  footer {
-    padding: 32px 0 48px;
-    border-top: 1px solid var(--line);
-    margin-top: 32px;
-  }
-  .foot {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-    font-size: 12px;
-    color: var(--fg-mute);
-  }
-  .foot-left { display: flex; align-items: center; gap: 8px; }
-
-  /* ---------- CONTACT MODAL ---------- */
-  .link-btn[type="button"] {
-    width: 100%;
-    text-align: left;
-    cursor: pointer;
-    font: inherit;
-  }
-  .modal {
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-  }
-  .modal[aria-hidden="false"] { display: flex; }
-  .modal-backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-  }
-  .modal-panel {
-    position: relative;
-    background: var(--bg-elev);
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    width: 100%;
-    max-width: 520px;
-    max-height: calc(100vh - 48px);
-    overflow-y: auto;
-    box-shadow: var(--shadow-lg);
-    animation: modal-pop .2s var(--ease);
-  }
-  @keyframes modal-pop {
-    from { transform: translateY(8px) scale(0.98); opacity: 0; }
-    to   { transform: translateY(0) scale(1); opacity: 1; }
-  }
-  .modal-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 20px 16px;
-    border-bottom: 1px solid var(--line);
-  }
-  .modal-title {
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin: 0;
-  }
-  .modal-close {
-    width: 32px;
-    height: 32px;
-    border-radius: 999px;
-    display: grid;
-    place-items: center;
-    color: var(--fg-mute);
-    transition: background .15s var(--ease), color .15s var(--ease);
-  }
-  .modal-close:hover { background: var(--bg-soft); color: var(--fg); }
-  .modal-close svg { width: 18px; height: 18px; }
-  .modal-form {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .field-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--fg-soft);
-  }
-  .field input[type="email"],
-  .field textarea {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    font-size: 14px;
-    font-family: inherit;
-    color: var(--fg);
-    background: var(--bg);
-    transition: border-color .15s var(--ease);
-  }
-  .field textarea {
-    min-height: 110px;
-    resize: vertical;
-  }
-  .field input[type="email"]:focus,
-  .field textarea:focus {
-    outline: 2px solid var(--red);
-    outline-offset: 2px;
-    border-color: var(--red);
-  }
-  .modal-actions {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    margin-top: 4px;
-  }
-  .btn-modal {
-    padding: 10px 18px;
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: 600;
-    border: 1px solid transparent;
-    transition: background .15s var(--ease), filter .15s var(--ease);
-  }
-  .btn-modal-ghost {
-    background: var(--bg-soft);
-    color: var(--fg-soft);
-  }
-  .btn-modal-ghost:hover { background: var(--line); color: var(--fg); }
-  .btn-modal-primary {
-    background: var(--red);
-    color: white;
-  }
-  .btn-modal-primary:hover { filter: brightness(0.95); }
-  .btn-modal:disabled { opacity: 0.6; cursor: not-allowed; }
-  .honeypot { position: absolute; left: -9999px; }
-
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(120px);
-    background: var(--fg);
-    color: var(--bg);
-    padding: 12px 22px;
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: 500;
-    box-shadow: var(--shadow-md);
-    z-index: 200;
-    opacity: 0;
-    transition: opacity .2s var(--ease), transform .25s var(--ease);
-    pointer-events: none;
-    max-width: calc(100vw - 48px);
-    text-align: center;
-  }
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-  .toast.error { background: var(--red); color: white; }
-
-  /* ---------- RESPONSIVE ---------- */
-  @media (max-width: 720px) {
-    .apps { grid-template-columns: 1fr; }
-    .principles { grid-template-columns: repeat(2, 1fr); }
-    .principle:nth-child(2) { border-right: 0; }
-    .principle:nth-child(1), .principle:nth-child(2) {
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 18px;
-    }
-    .principle:nth-child(3), .principle:nth-child(4) {
-      padding-top: 18px;
-    }
-    .contact-row { grid-template-columns: 1fr; }
-    .hero { padding: 56px 0 40px; }
+  @media (max-width: 600px) {
+    .hero { padding: 80px 0 48px; }
     section { padding: 48px 0; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation: none !important; transition: none !important; }
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav" id="nav">
+<nav class="nav">
   <div class="container nav-inner">
     <a href="#" class="brand" aria-label="AtticLab">
       <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 11l9-7 9 7"/>
-          <path d="M5 10v10h14V10"/>
-          <path d="M10 20v-5h4v5"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg>
       </span>
       AtticLab
     </a>
-    <div class="nav-actions">
-      <select class="lang-select" id="langSelect" aria-label="Language">
-        <option value="ko">한국어</option>
-        <option value="en">English</option>
-        <option value="zh">中文</option>
-        <option value="ja">日本語</option>
-      </select>
-      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
-        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="4"/>
-          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-        </svg>
-      </button>
-    </div>
   </div>
 </nav>
 
-<!-- HERO -->
 <header class="hero">
-  <div class="container hero-inner">
-    <span class="eyebrow">
-      <span class="dot"></span>
-      <span class="ko">인디 소프트웨어 스튜디오 · 2026</span>
-      <span class="en">Indie software studio · est. 2026</span>
-      <span class="zh">独立软件工作室 · 2026</span>
-      <span class="ja">インディーソフトウェアスタジオ · 2026</span>
-    </span>
-    <h1 class="wordmark">
-      Attic<span class="lab">Lab</span>
-    </h1>
-    <p class="hero-tag">
-      <span class="ko">다락방에서 시작된, 작은 인디 스튜디오.<br>일상에 도움이 되는 앱을 만듭니다.</span>
-      <span class="en">A small indie studio that started in an attic.<br>We build apps that help with everyday life.</span>
-      <span class="zh">始于阁楼的小型独立工作室。<br>我们打造让日常更轻松的应用。</span>
-      <span class="ja">屋根裏部屋から始まった小さなインディースタジオ。<br>日常に役立つアプリを作っています。</span>
-    </p>
+  <div class="container">
+    <h1 class="wordmark">AtticLab</h1>
+    <p class="hero-tag">A small studio making quiet, focused apps.</p>
   </div>
 </header>
 
-<!-- APPS -->
-<section id="apps">
+<section>
   <div class="container">
-    <div class="sec-head">
-      <h2 class="sec-title"><span class="ko">우리 앱</span><span class="en">Our Apps</span>
-      <span class="zh">我们的应用</span>
-      <span class="ja">私たちのアプリ</span></h2>
-      <span class="sec-meta"><span class="ko">01 / 출시 · 더 만드는 중</span><span class="en">01 / Live · More on the way</span>
-      <span class="zh">01 / 已上线 · 更多即将推出</span>
-      <span class="ja">01 / 公開中 · 続々開発中</span></span>
-    </div>
-
+    <h2 class="sec-title">Our apps</h2>
     <div class="apps">
-      <a class="app-card live" href="shuttimer.html">
-        <img class="app-icon" src="assets/shuttimer-icon.png" alt="ShutTimer" width="56" height="56" />
+      <a class="app-card" href="shuttimer.html">
+        <img class="app-icon" src="assets/shuttimer-icon.png" alt="ShutTimer" width="48" height="48" />
         <div class="app-info">
-          <div class="app-row">
-            <span class="app-name">ShutTimer</span>
-            <span class="app-status"><span class="ko">출시</span><span class="en">Live</span>
-      <span class="zh">已上线</span>
-      <span class="ja">公開中</span></span>
-          </div>
-          <div class="app-desc">
-            <span class="ko">일어날 수밖에 없게 만드는 알람. 사진 미션 알람 + 루틴 타이머.</span>
-            <span class="en">The alarm you stand up for. Photo-mission alarms + routine timer.</span>
-      <span class="zh">让你不得不起床的闹钟。照片任务闹钟 + 习惯计时器。</span>
-      <span class="ja">起きるしかなくなる目覚まし。写真ミッションアラーム + ルーティンタイマー。</span>
-          </div>
+          <div class="app-name">ShutTimer</div>
+          <div class="app-desc">The alarm that gets you up. Photo-mission alarm + auto routine.</div>
         </div>
-        <div class="app-arrow">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-        </div>
-      </a>
-
-      <div class="app-card soon" aria-disabled="true">
-        <div class="placeholder-icon" aria-hidden="true">?</div>
-        <div class="app-info">
-          <div class="app-row">
-            <span class="app-name"><span class="ko">다음 앱</span><span class="en">Next app</span>
-      <span class="zh">下一款应用</span>
-      <span class="ja">次のアプリ</span></span>
-            <span class="app-status soon"><span class="ko">준비 중</span><span class="en">Brewing</span>
-      <span class="zh">准备中</span>
-      <span class="ja">準備中</span></span>
-          </div>
-          <div class="app-desc">
-            <span class="ko">다락방에서 조용히 만드는 중. 곧 만나요.</span>
-            <span class="en">Quietly being built in the attic. We'll see you soon.</span>
-      <span class="zh">正在阁楼里悄悄打造。很快见。</span>
-      <span class="ja">屋根裏部屋で静かに制作中。もうすぐお会いしましょう。</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MANIFESTO -->
-<section class="manifesto" id="about">
-  <div class="container">
-    <div class="sec-head">
-      <h2 class="sec-title"><span class="ko">우리의 방식</span><span class="en">How we work</span>
-      <span class="zh">我们的方式</span>
-      <span class="ja">私たちの流儀</span></h2>
-      <span class="sec-meta"><span class="ko">스튜디오 · 노트</span><span class="en">Studio · Notes</span>
-      <span class="zh">工作室 · 笔记</span>
-      <span class="ja">スタジオ · ノート</span></span>
-    </div>
-
-    <blockquote class="mani-quote">
-      <span class="ko">“출시는 시작입니다. 만든 앱을 꾸준히 다듬고, 새로운 앱도 함께 만들어 갑니다.”</span>
-      <span class="en">"Launch is just the beginning. We keep refining the apps we've made, and build new ones alongside them."</span>
-      <span class="zh">"上线只是开始。我们持续打磨已发布的应用，并同时开发新的应用。"</span>
-      <span class="ja">「リリースは始まりです。作ったアプリを丁寧に磨き続け、新しいアプリも一緒に作っていきます。」</span>
-    </blockquote>
-
-    <div class="principles">
-      <div class="principle">
-        <div class="principle-num">01</div>
-        <div class="principle-text"><span class="ko">직접 쓰고 싶은 앱</span><span class="en">Apps we want to use ourselves</span>
-      <span class="zh">自己也想用的应用</span>
-      <span class="ja">自分たちが使いたいアプリ</span></div>
-      </div>
-      <div class="principle">
-        <div class="principle-num">02</div>
-        <div class="principle-text"><span class="ko">작게 시작, 꾸준히 다듬기</span><span class="en">Start small, refine continuously</span>
-      <span class="zh">小步开始，持续打磨</span>
-      <span class="ja">小さく始めて、磨き続ける</span></div>
-      </div>
-      <div class="principle">
-        <div class="principle-num">03</div>
-        <div class="principle-text"><span class="ko">문의는 사람이 직접 답합니다</span><span class="en">Real humans answer your questions</span>
-      <span class="zh">由真人回复您的咨询</span>
-      <span class="ja">お問い合わせには人が直接お答えします</span></div>
-      </div>
-      <div class="principle">
-        <div class="principle-num">04</div>
-        <div class="principle-text"><span class="ko">다락방에서 제작</span><span class="en">Built in an attic</span>
-      <span class="zh">在阁楼里打造</span>
-      <span class="ja">屋根裏部屋で制作</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="container">
-    <div class="sec-head">
-      <h2 class="sec-title"><span class="ko">연락하기</span><span class="en">Get in touch</span>
-      <span class="zh">联系我们</span>
-      <span class="ja">お問い合わせ</span></h2>
-      <span class="sec-meta"><span class="ko">24시간 내 답장</span><span class="en">Replies in 24h</span>
-      <span class="zh">24小时内回复</span>
-      <span class="ja">24時間以内に返信</span></span>
-    </div>
-
-    <div class="contact-row">
-      <button class="link-btn" type="button" id="contactBtn">
-        <div class="label-row">
-          <span><span class="ko">문의</span><span class="en">Contact</span>
-      <span class="zh">联系</span>
-      <span class="ja">お問い合わせ</span></span>
-          <small>hwan4870a@gmail.com</small>
-        </div>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-      </button>
-      <a class="link-btn" href="privacy/">
-        <div class="label-row">
-          <span><span class="ko">개인정보 처리방침</span><span class="en">Privacy Policy</span>
-      <span class="zh">隐私政策</span>
-      <span class="ja">プライバシーポリシー</span></span>
-          <small><span class="ko">사용자 데이터를 어떻게 다루는지 (안 다룹니다)</span><span class="en">How we handle your data (we don't)</span>
-      <span class="zh">我们如何处理您的数据（我们不处理）</span>
-      <span class="ja">ユーザーデータの取り扱い方針（取り扱いません）</span></small>
-        </div>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        <span class="app-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
       </a>
     </div>
+    <p class="coming">More on the way.</p>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="container foot">
-    <div class="foot-left">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 11l9-7 9 7"/>
-          <path d="M5 10v10h14V10"/>
-          <path d="M10 20v-5h4v5"/>
-        </svg>
-      </span>
-      <span><span class="ko">© 2026 AtticLab. 모든 권리 보유.</span><span class="en">© 2026 AtticLab. All rights reserved.</span>
-      <span class="zh">© 2026 AtticLab. 保留所有权利。</span>
-      <span class="ja">© 2026 AtticLab. All rights reserved.</span></span>
+    <span>&copy; 2026 AtticLab</span>
+    <div class="foot-links">
+      <a href="privacy/">Privacy</a>
+      <a href="mailto:hwan4870a@gmail.com">Contact</a>
     </div>
-    <div><span class="ko">대한민국 다락방에서 🏠</span><span class="en">Made from an attic in Korea 🏠</span>
-      <span class="zh">来自韩国的阁楼 🏠</span>
-      <span class="ja">韓国の屋根裏部屋から 🏠</span></div>
   </div>
 </footer>
 
-<!-- CONTACT MODAL -->
-<div class="modal" id="contactModal" aria-hidden="true" role="dialog" aria-labelledby="contactModalTitle" aria-modal="true">
-  <div class="modal-backdrop" data-modal-close></div>
-  <div class="modal-panel" role="document">
-    <div class="modal-head">
-      <h3 id="contactModalTitle" class="modal-title">
-        <span class="ko">문의</span><span class="en">Contact</span><span class="zh">联系</span><span class="ja">お問い合わせ</span>
-      </h3>
-      <button class="modal-close" type="button" aria-label="Close" data-modal-close>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-    </div>
-    <form id="contactForm" class="modal-form" novalidate>
-      <input type="hidden" name="access_key" value="f207ac72-6f25-454f-a89b-3846017776f1" />
-      <input type="hidden" name="subject" value="AtticLab Contact — new message" />
-      <input type="hidden" name="from_name" value="AtticLab" />
-      <input type="checkbox" name="botcheck" class="honeypot" tabindex="-1" autocomplete="off" />
-
-      <label class="field">
-        <span class="field-label">
-          <span class="ko">이메일</span><span class="en">Email</span><span class="zh">邮箱</span><span class="ja">メール</span>
-        </span>
-        <input type="email" name="email" required autocomplete="email" id="contactEmail" />
-      </label>
-
-      <label class="field">
-        <span class="field-label">
-          <span class="ko">내용</span><span class="en">Message</span><span class="zh">内容</span><span class="ja">内容</span>
-        </span>
-        <textarea name="message" rows="5" required id="contactMessage"></textarea>
-      </label>
-
-      <div class="modal-actions">
-        <button type="button" class="btn-modal btn-modal-ghost" data-modal-close>
-          <span class="ko">취소</span><span class="en">Cancel</span><span class="zh">取消</span><span class="ja">キャンセル</span>
-        </button>
-        <button type="submit" class="btn-modal btn-modal-primary" id="contactSubmit">
-          <span class="ko">보내기</span><span class="en">Send</span><span class="zh">发送</span><span class="ja">送信</span>
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
 <script>
-  const root = document.documentElement;
-
-  // i18n
-  const supportedLangs = ['ko', 'en', 'zh', 'ja'];
-  const i18nMeta = {
-    ko: {
-      title: 'AtticLab — 다락방에서 시작된 작은 인디 스튜디오',
-      description: 'AtticLab은 일상에 도움이 되는 앱을 만드는 작은 인디 스튜디오입니다. ShutTimer 외 새로운 앱들을 준비 중입니다.',
-    },
-    en: {
-      title: 'AtticLab — A small indie studio',
-      description: 'AtticLab is a small indie studio crafting quiet, focused productivity apps. Makers of ShutTimer and more.',
-    },
-    zh: {
-      title: 'AtticLab — 始于阁楼的小型独立工作室',
-      description: 'AtticLab 是一家打造日常实用应用的小型独立工作室。除 ShutTimer 外，更多应用即将推出。',
-    },
-    ja: {
-      title: 'AtticLab — 屋根裏部屋発の小さなインディースタジオ',
-      description: 'AtticLabは日常に役立つアプリを作る小さなインディースタジオ。ShutTimerほか、新作も準備中です。',
-    },
-  };
-  function applyMeta(lang) {
-    const m = i18nMeta[lang] || i18nMeta.en;
-    document.title = m.title;
-    const desc = document.querySelector('meta[name="description"]');
-    if (desc) desc.setAttribute('content', m.description);
-    const ogt = document.querySelector('meta[property="og:title"]');
-    if (ogt) ogt.setAttribute('content', m.title);
-    const ogd = document.querySelector('meta[property="og:description"]');
-    if (ogd) ogd.setAttribute('content', m.description);
-  }
-
-  const contactPlaceholders = {
-    email: {
-      ko: '회신 받을 이메일',
-      en: 'Your email',
-      zh: '您的邮箱',
-      ja: 'メールアドレス',
-    },
-    message: {
-      ko: '어떤 도움이 필요하신가요?',
-      en: 'How can we help?',
-      zh: '需要什么帮助？',
-      ja: 'どのようにお手伝いしましょうか？',
-    },
-  };
-  function applyContactPlaceholders(lang) {
-    const email = document.getElementById('contactEmail');
-    const msg = document.getElementById('contactMessage');
-    if (email) email.placeholder = contactPlaceholders.email[lang] || contactPlaceholders.email.en;
-    if (msg) msg.placeholder = contactPlaceholders.message[lang] || contactPlaceholders.message.en;
-  }
-  function detectBrowserLang() {
-    const langs = navigator.languages && navigator.languages.length
-      ? navigator.languages
-      : [navigator.language || 'en'];
-    for (const l of langs) {
-      const code = l.toLowerCase().split('-')[0];
-      if (supportedLangs.includes(code)) return code;
-    }
-    return 'en';
-  }
-  const stored = localStorage.getItem('atticlab-lang');
-  const savedLang = supportedLangs.includes(stored) ? stored : detectBrowserLang();
-  root.setAttribute('data-lang', savedLang);
-  root.setAttribute('lang', savedLang);
-  applyMeta(savedLang);
-  applyContactPlaceholders(savedLang);
-  const langSelect = document.getElementById('langSelect');
-  langSelect.value = savedLang;
-  langSelect.addEventListener('change', () => {
-    const lang = langSelect.value;
-    root.setAttribute('data-lang', lang);
-    root.setAttribute('lang', lang);
-    applyMeta(lang);
-    applyContactPlaceholders(lang);
-    localStorage.setItem('atticlab-lang', lang);
-  });
-
-  // ----- Contact modal -----
-  const contactBtn = document.getElementById('contactBtn');
-  const contactModal = document.getElementById('contactModal');
-  const contactForm = document.getElementById('contactForm');
-  const contactSubmit = document.getElementById('contactSubmit');
-  const toastEl = document.getElementById('toast');
-
-  const toastMessages = {
-    success: {
-      ko: '메시지가 전송됐어요. 24시간 내 답장드릴게요.',
-      en: "Message sent. We'll reply within 24h.",
-      zh: '消息已发送，24小时内回复。',
-      ja: 'メッセージを送信しました。24時間以内に返信します。',
-    },
-    error: {
-      ko: '전송에 실패했어요. 잠시 후 다시 시도해주세요.',
-      en: 'Failed to send. Please try again.',
-      zh: '发送失败，请稍后重试。',
-      ja: '送信に失敗しました。しばらくしてから再度お試しください。',
-    },
-  };
-
-  function openContactModal() {
-    contactModal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    setTimeout(() => document.getElementById('contactEmail').focus(), 60);
-  }
-  function closeContactModal() {
-    contactModal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  }
-  function showToast(message, type) {
-    toastEl.textContent = message;
-    toastEl.classList.toggle('error', type === 'error');
-    toastEl.classList.add('show');
-    setTimeout(() => toastEl.classList.remove('show'), 4500);
-  }
-
-  contactBtn.addEventListener('click', openContactModal);
-  contactModal.querySelectorAll('[data-modal-close]').forEach(el => {
-    el.addEventListener('click', closeContactModal);
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && contactModal.getAttribute('aria-hidden') === 'false') {
-      closeContactModal();
-    }
-  });
-
-  contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    contactSubmit.disabled = true;
-    const lang = root.getAttribute('data-lang') || 'en';
-    try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: new FormData(contactForm),
-      });
-      const json = await res.json();
-      if (json.success) {
-        contactForm.reset();
-        closeContactModal();
-        showToast(toastMessages.success[lang] || toastMessages.success.en, 'success');
-      } else {
-        throw new Error(json.message || 'send failed');
-      }
-    } catch (err) {
-      showToast(toastMessages.error[lang] || toastMessages.error.en, 'error');
-    } finally {
-      contactSubmit.disabled = false;
-    }
-  });
-
-  const themeBtn = document.getElementById('themeBtn');
-  const saved = localStorage.getItem('atticlab-theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const initial = saved || (prefersDark ? 'dark' : 'light');
-  root.setAttribute('data-theme', initial);
-  updateThemeIcon(initial);
-
-  themeBtn.addEventListener('click', () => {
-    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    localStorage.setItem('atticlab-theme', next);
-    updateThemeIcon(next);
-  });
-
-  function updateThemeIcon(theme) {
-    const icon = document.getElementById('themeIcon');
-    if (theme === 'dark') {
-      icon.innerHTML = '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="currentColor" stroke="none"/>';
-    } else {
-      icon.innerHTML = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>';
-    }
-  }
-
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 8);
-  }, { passive: true });
+const root = document.documentElement;
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+if (prefersDark) root.setAttribute('data-theme', 'dark');
 </script>
 
 </body>

@@ -1,254 +1,96 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Privacy Policy — ShutTimer · AtticLab</title>
-<meta name="description" content="Privacy policy for ShutTimer by AtticLab." />
-<meta name="theme-color" content="#ff2d3d" />
-
+<meta name="description" content="Privacy policy for ShutTimer by AtticLab. ShutTimer stores all data locally on your device and does not collect personal information." />
+<meta name="theme-color" content="#FFF8F0" />
+<link rel="icon" type="image/png" href="../assets/shuttimer-icon.png" />
+<link rel="apple-touch-icon" href="../assets/shuttimer-icon.png" />
+<link rel="canonical" href="https://atticlab.app/privacy/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="AtticLab" />
+<meta property="og:url" content="https://atticlab.app/privacy/" />
+<meta property="og:title" content="Privacy Policy — ShutTimer" />
+<meta property="og:description" content="Privacy policy for ShutTimer by AtticLab." />
+<meta property="og:image" content="https://atticlab.app/assets/og-card-shuttimer.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Privacy Policy — ShutTimer" />
+<meta name="twitter:image" content="https://atticlab.app/assets/og-card-shuttimer.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 <style>
-  :root {
-    --bg: #f7f6f3;
-    --bg-soft: #efede8;
-    --bg-elev: #ffffff;
-    --fg: #0a0a0b;
-    --fg-soft: #4a4a52;
-    --fg-mute: #8a8a93;
-    --line: #e3e1da;
-    --line-strong: #cfccc1;
-    --red: #ff2d3d;
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-md: 0 12px 32px -10px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.04);
-    --ease: cubic-bezier(.2,.7,.2,1);
+  :root{
+    --cream:#FFF8F0; --warm-light:#F5EDE4; --card:#FFFFFF;
+    --ink:#2C2C2C; --ink-soft:#6F665E; --ink-faint:#A89E94; --line:#ECE2D6;
+    --teal:#20B2AA; --teal-text:#0F6E62;
+    --sh-1:0 2px 6px rgba(120,92,64,.06),0 1px 2px rgba(120,92,64,.04);
+    --font-kr:'Pretendard',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+    --font-en:'Playfair Display',Georgia,serif;
+    --maxw:760px; --ease:cubic-bezier(0.16,1,0.3,1);
   }
-  [data-theme="dark"] {
-    --bg: #0a0a0b;
-    --bg-soft: #131316;
-    --bg-elev: #17171b;
-    --fg: #f7f7f8;
-    --fg-soft: #c2c2cb;
-    --fg-mute: #7a7a85;
-    --line: #232328;
-    --line-strong: #2e2e35;
-    --red: #ff3a48;
-  }
-
-  * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
-  body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--fg);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    line-height: 1.6;
-    letter-spacing: -0.005em;
-    transition: background-color .25s var(--ease), color .25s var(--ease);
-  }
-  a { color: inherit; text-decoration: none; }
-  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
-
-  .container {
-    width: 100%;
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--font-kr);font-weight:400;line-height:1.7;-webkit-font-smoothing:antialiased;letter-spacing:-.01em;}
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+  .en{font-family:var(--font-en);font-style:italic;}
   /* NAV */
-  .nav {
-    position: sticky; top: 0; z-index: 50;
-    background: color-mix(in srgb, var(--bg) 82%, transparent);
-    backdrop-filter: saturate(180%) blur(14px);
-    -webkit-backdrop-filter: saturate(180%) blur(14px);
-    border-bottom: 1px solid transparent;
-    transition: border-color .2s var(--ease);
-  }
-  .nav.scrolled { border-bottom-color: var(--line); }
-  .nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 64px;
-  }
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--fg-soft);
-    padding: 8px 12px 8px 8px;
-    border-radius: 999px;
-    transition: background .15s var(--ease), color .15s var(--ease);
-  }
-  .back-link:hover { background: var(--bg-soft); color: var(--fg); }
-  .back-link svg { width: 16px; height: 16px; }
-
-  .brand-mark {
-    width: 26px; height: 26px;
-    border-radius: 7px;
-    background: var(--fg);
-    color: var(--bg);
-    display: grid;
-    place-items: center;
-  }
-  .brand-mark svg { width: 15px; height: 15px; }
-
-  .icon-btn {
-    width: 38px; height: 38px;
-    border-radius: 999px;
-    display: grid; place-items: center;
-    color: var(--fg-soft);
-    transition: background .15s var(--ease);
-  }
-  .icon-btn:hover { background: var(--bg-soft); }
-  .icon-btn svg { width: 18px; height: 18px; }
-
+  .nav{position:sticky;top:0;z-index:50;background:color-mix(in oklab,var(--cream),transparent 12%);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line);}
+  .nav .row{max-width:var(--maxw);margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .nav .mark{display:flex;align-items:baseline;gap:9px;}
+  .nav .mark .en{font-size:19px;font-weight:600;color:var(--ink);}
+  .nav .mark .sep{width:1px;height:15px;background:var(--line);}
+  .nav .mark .app{font-size:15px;font-weight:600;color:var(--teal-text);}
+  .nav .back{font-size:14px;font-weight:600;color:var(--ink-soft);text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+  .nav .back:hover{color:var(--ink);}
+  .nav .back svg{width:16px;height:16px;}
   /* HEAD */
-  .head {
-    padding: 56px 0 32px;
-    border-bottom: 1px solid var(--line);
-  }
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 4px 12px 4px 8px;
-    background: var(--bg-elev);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--fg-soft);
-    margin-bottom: 20px;
-  }
-  .badge .ic {
-    width: 18px; height: 18px;
-    border-radius: 5px;
-    background: var(--fg);
-    color: var(--bg);
-    display: grid; place-items: center;
-  }
-  .badge .ic svg { width: 11px; height: 11px; }
-
-  h1.title {
-    font-size: clamp(32px, 5.5vw, 48px);
-    font-weight: 800;
-    letter-spacing: -0.035em;
-    line-height: 1.05;
-    margin: 0 0 16px;
-    text-wrap: balance;
-  }
-  .effective {
-    font-size: 13px;
-    color: var(--fg-mute);
-    font-weight: 500;
-    font-variant-numeric: tabular-nums;
-  }
-  .effective strong { color: var(--fg-soft); font-weight: 600; }
-
+  .head{padding:clamp(48px,8vw,84px) 0 28px;}
+  .eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-text);margin-bottom:18px;}
+  .eyebrow svg{width:15px;height:15px;}
+  .head h1{font-family:var(--font-kr);font-weight:700;font-size:clamp(30px,5vw,44px);line-height:1.15;letter-spacing:-.03em;margin:0 0 14px;}
+  .effective{font-size:14.5px;color:var(--ink-soft);}
+  .effective strong{color:var(--ink);font-weight:600;}
   /* BODY */
-  .body { padding: 40px 0 80px; }
-  .lede {
-    font-size: 16px;
-    color: var(--fg-soft);
-    padding: 18px 20px;
-    background: var(--bg-elev);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    margin-bottom: 40px;
-  }
-
-  .section {
-    padding: 32px 0;
-    border-bottom: 1px solid var(--line);
-  }
-  .section:last-child { border-bottom: 0; }
-  .section-num {
-    display: inline-block;
-    font-size: 12px;
-    color: var(--red);
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    margin-bottom: 10px;
-  }
-  h2 {
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.025em;
-    margin: 0 0 14px;
-    line-height: 1.2;
-  }
-  p {
-    margin: 0;
-    color: var(--fg-soft);
-    font-size: 15px;
-    line-height: 1.7;
-  }
-  p + p { margin-top: 12px; }
-  .email-link {
-    color: var(--red);
-    font-weight: 600;
-    border-bottom: 1px solid color-mix(in srgb, var(--red) 30%, transparent);
-    transition: border-color .15s var(--ease);
-  }
-  .email-link:hover { border-bottom-color: var(--red); }
-
+  .body{padding:18px 0 clamp(64px,9vw,110px);}
+  .lede{font-size:18px;color:var(--ink-soft);margin:0 0 34px;padding-bottom:30px;border-bottom:1px solid var(--line);}
+  .section{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh-1);padding:26px 28px;margin-bottom:16px;}
+  .section-num{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--teal-text);margin-bottom:8px;}
+  .section h2{font-family:var(--font-kr);font-size:19px;font-weight:700;letter-spacing:-.02em;margin:0 0 10px;}
+  .section p{font-size:15.5px;color:var(--ink-soft);margin:0;}
+  .email-link{color:var(--teal-text);font-weight:600;text-decoration:none;}
+  .email-link:hover{text-decoration:underline;}
   /* FOOTER */
-  footer {
-    padding: 32px 0 48px;
-    border-top: 1px solid var(--line);
-    font-size: 12px;
-    color: var(--fg-mute);
-    text-align: center;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation: none !important; transition: none !important; }
-  }
+  footer{border-top:1px solid var(--line);}
+  footer .row{max-width:var(--maxw);margin:0 auto;padding:30px 28px 48px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  footer .brand{font-family:var(--font-en);font-style:italic;font-size:18px;color:var(--ink);}
+  footer .fmeta{font-size:13px;color:var(--ink-faint);}
+  @media(max-width:480px){.wrap{padding:0 18px;}.nav .row,footer .row{padding-left:18px;padding-right:18px;}}
 </style>
 </head>
 <body>
 
-<nav class="nav" id="nav">
-  <div class="container nav-inner">
-    <a class="back-link" href="../index.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 19l-7-7 7-7"/></svg>
-      AtticLab
-    </a>
-    <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
-      <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="4"/>
-        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-      </svg>
-    </button>
-  </div>
-</nav>
-
-<header class="head">
-  <div class="container">
-    <span class="badge">
-      <span class="ic" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/>
-        </svg>
-      </span>
-      Legal · Privacy
-    </span>
-    <h1 class="title">Privacy Policy for ShutTimer</h1>
-    <div class="effective">Effective date: <strong>April 9, 2026</strong></div>
+<header class="nav">
+  <div class="row">
+    <div class="mark"><span class="en">AtticLab</span><span class="sep"></span><span class="app">ShutTimer</span></div>
+    <a class="back" href="../shuttimer.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>ShutTimer</a>
   </div>
 </header>
 
+<section class="head">
+  <div class="wrap">
+    <span class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/></svg>Legal · Privacy</span>
+    <h1>Privacy Policy for ShutTimer</h1>
+    <div class="effective">Effective date: <strong>April 9, 2026</strong></div>
+  </div>
+</section>
+
 <main class="body">
-  <div class="container">
-    <p class="lede">ShutTimer ("the App") is developed and operated by TLabs.</p>
+  <div class="wrap">
+    <p class="lede">ShutTimer ("the App") is developed and operated by AtticLab.</p>
 
     <div class="section">
       <span class="section-num">01</span>
@@ -265,13 +107,13 @@
     <div class="section">
       <span class="section-num">03</span>
       <h2>In-App Purchases</h2>
-      <p>The App offers a one-time purchase to remove ads, processed through App Store. We do not collect or store any payment information.</p>
+      <p>The App offers a one-time purchase to remove ads, processed through the App Store. We do not collect or store any payment information.</p>
     </div>
 
     <div class="section">
       <span class="section-num">04</span>
       <h2>Contact</h2>
-      <p>If you have any questions, please contact us at: <a class="email-link" href="mailto:hwan4870a@gmail.com">hwan4870a@gmail.com</a></p>
+      <p>If you have any questions, please contact us at <a class="email-link" href="mailto:hwan4870a@gmail.com">hwan4870a@gmail.com</a>.</p>
     </div>
 
     <div class="section">
@@ -283,39 +125,11 @@
 </main>
 
 <footer>
-  <div class="container">© 2026 AtticLab. All rights reserved.</div>
+  <div class="row">
+    <div class="brand">AtticLab</div>
+    <div class="fmeta">© 2026 AtticLab · ShutTimer · atticlab.app</div>
+  </div>
 </footer>
-
-<script>
-  const root = document.documentElement;
-  const themeBtn = document.getElementById('themeBtn');
-  const saved = localStorage.getItem('atticlab-theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const initial = saved || (prefersDark ? 'dark' : 'light');
-  root.setAttribute('data-theme', initial);
-  updateThemeIcon(initial);
-
-  themeBtn.addEventListener('click', () => {
-    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    localStorage.setItem('atticlab-theme', next);
-    updateThemeIcon(next);
-  });
-
-  function updateThemeIcon(theme) {
-    const icon = document.getElementById('themeIcon');
-    if (theme === 'dark') {
-      icon.innerHTML = '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="currentColor" stroke="none"/>';
-    } else {
-      icon.innerHTML = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>';
-    }
-  }
-
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 8);
-  }, { passive: true });
-</script>
 
 </body>
 </html>
