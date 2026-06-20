@@ -616,29 +616,37 @@ function toggleFaq(btn){
   });
 })();
 (function(){
+  /* 히어로 슬라이드 — clone 기반 무이음 루프(transitionend로 정밀 리셋) */
   var slides=document.querySelector('.slides');
   if(!slides||slides.children.length<2)return;
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var EASE='transform .55s cubic-bezier(.55,0,.2,1)';
   var real=slides.children.length-1; /* 마지막은 첫 장 복제 */
-  var i=0;
-  function step(){
+  var i=0, animating=false, timer=null;
+  function go(){
+    if(animating)return;
+    animating=true;
     i++;
-    slides.style.transition='transform .55s cubic-bezier(.55,0,.2,1)';
-    slides.style.transform='translateX(-'+(i*20)+'%)';
-    if(i>=real){
-      window.setTimeout(function(){
-        slides.style.transition='none';
-        slides.style.transform='translateX(0)';
-        void slides.offsetHeight; /* 리플로우 강제 → 다음 transition 정상 */
-        i=0;
-      },600);
-    }
+    slides.style.transition=EASE;
+    slides.style.transform='translate3d(-'+(i*20)+'%,0,0)';
   }
-  var timer=window.setInterval(step,2800);
-  document.addEventListener('visibilitychange',function(){
-    if(document.hidden){window.clearInterval(timer);}
-    else{timer=window.setInterval(step,2800);}
+  slides.addEventListener('transitionend',function(e){
+    if(e.target!==slides||e.propertyName!=='transform')return;
+    animating=false;
+    if(i>=real){
+      /* 복제 장(=첫 장)에 도달 → 전환 끄고 동일 이미지에서 위치만 0으로 복귀(안 보임) */
+      slides.style.transition='none';
+      slides.style.transform='translate3d(0,0,0)';
+      i=0;
+      requestAnimationFrame(function(){requestAnimationFrame(function(){
+        slides.style.transition=EASE; /* double rAF로 transition 재무장 */
+      });});
+    }
   });
+  function start(){ if(!timer) timer=window.setInterval(go,2800); }
+  function stop(){ if(timer){ window.clearInterval(timer); timer=null; } }
+  start();
+  document.addEventListener('visibilitychange',function(){ document.hidden?stop():start(); });
 })();
 </script>
 </body>
