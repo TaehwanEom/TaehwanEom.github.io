@@ -123,10 +123,8 @@
   .phone .screen{width:100%;height:100%;border-radius:35px;overflow:hidden;background:var(--cream);display:flex;flex-direction:column;}
   .phone .notch{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:98px;height:27px;background:#1c1c1e;border-radius:14px;z-index:5;}
   /* HERO PHONE — 스크린샷 슬라이드 */
-  .slides{display:flex;width:500%;height:100%;flex:none;animation:phoneSlides 10s infinite;will-change:transform;backface-visibility:hidden;}
+  .slides{display:flex;width:500%;height:100%;flex:none;transform:translateX(0);transition:transform .55s cubic-bezier(.55,0,.2,1);will-change:transform;backface-visibility:hidden;}
   .slides img{width:20%;height:100%;object-fit:cover;display:block;}
-  @keyframes phoneSlides{0%,16%{transform:translate3d(0,0,0);}20%,36%{transform:translate3d(-20%,0,0);}40%,56%{transform:translate3d(-40%,0,0);}60%,76%{transform:translate3d(-60%,0,0);}80%,96%{transform:translate3d(-80%,0,0);}100%{transform:translate3d(-80%,0,0);}}
-  @media(prefers-reduced-motion:reduce){.slides{animation:none;}}
   /* ABOUT */
   .pad{padding:clamp(68px,10vw,118px) 0;}
   .about{background:var(--warm-light);}
@@ -615,6 +613,31 @@ function toggleFaq(btn){
       else{throw new Error(json.message||'send failed');}
     }catch(err){toast(TMSG('error'),'error');}
     finally{submit.disabled=false;}
+  });
+})();
+(function(){
+  var slides=document.querySelector('.slides');
+  if(!slides||slides.children.length<2)return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var real=slides.children.length-1; /* 마지막은 첫 장 복제 */
+  var i=0;
+  function step(){
+    i++;
+    slides.style.transition='transform .55s cubic-bezier(.55,0,.2,1)';
+    slides.style.transform='translateX(-'+(i*20)+'%)';
+    if(i>=real){
+      window.setTimeout(function(){
+        slides.style.transition='none';
+        slides.style.transform='translateX(0)';
+        void slides.offsetHeight; /* 리플로우 강제 → 다음 transition 정상 */
+        i=0;
+      },600);
+    }
+  }
+  var timer=window.setInterval(step,2800);
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden){window.clearInterval(timer);}
+    else{timer=window.setInterval(step,2800);}
   });
 })();
 </script>
