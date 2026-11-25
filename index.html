@@ -18,7 +18,8 @@
   header { padding:72px 0 40px; text-align:center; }
   header img { width:min(620px, 100%); height:auto; mix-blend-mode:multiply; }
   header p { margin:28px 0 0; font-size:clamp(18px, 2.6vw, 24px); font-style:italic; font-weight:800; letter-spacing:.01em; }
-  .apps { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px; padding:24px 0 72px; }
+  .group { margin:24px 0 0; font-size:22px; font-style:italic; font-weight:900; text-transform:uppercase; letter-spacing:.04em; }
+  .apps { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px; padding:16px 0 48px; }
   .card { border:4px solid var(--ink); border-radius:18px; padding:24px; display:flex; flex-direction:column; gap:14px; background:var(--paper); box-shadow:8px 8px 0 var(--ink); }
   .card img { width:84px; height:84px; border-radius:20px; }
   .card h2 { margin:0; font-size:28px; font-style:italic; font-weight:900; text-transform:uppercase; }
@@ -39,7 +40,9 @@
     <p>Small apps, made with care.</p>
   </header>
 
-  <main class="apps">
+  <main>
+  <h2 class="group">Games</h2>
+  <div class="apps">
     <section class="card">
       <img src="/assets/app-chupop.png" alt="" width="84" height="84" />
       <h2>Chew Pop</h2>
@@ -67,6 +70,10 @@
       <div class="tags"><span class="tag">iOS · Coming soon</span></div>
     </section>
 
+  </div>
+
+  <h2 class="group">Apps</h2>
+  <div class="apps">
     <section class="card">
       <img src="/assets/app-mornup.png" alt="" width="84" height="84" />
       <h2>MornUp</h2>
@@ -81,6 +88,7 @@
       <a class="more" href="/shuttimer.html">Learn more →</a>
       <div class="tags"><span class="tag">iOS</span></div>
     </section>
+  </div>
   </main>
 
   <footer>
