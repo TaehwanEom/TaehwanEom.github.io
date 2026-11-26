@@ -35,14 +35,18 @@
   h1 span{color:var(--yellow)}
   .lead{font-size:clamp(18px,2.4vw,22px);color:var(--ink-soft);margin:0 0 26px;max-width:30ch}
   .soon{display:inline-flex;align-items:center;gap:10px;background:var(--yellow);color:#4A1E8C;font-weight:700;padding:14px 22px;border-radius:999px;box-shadow:0 6px 0 #D9A400}
-  .shots{display:flex;justify-content:center;align-items:flex-start}
+  .shots{display:flex;flex-direction:column;align-items:center;gap:16px}
   .phone{position:relative;width:min(70%,300px);flex:none;padding:9px;background:#0c0c0e;border-radius:50px;box-shadow:0 0 0 2px #9a958f,0 0 0 4px #57534f,0 22px 44px rgba(0,0,0,.45)}
   .phone::before{content:"";position:absolute;left:-7px;top:22%;width:3px;height:9%;background:#6d6964;border-radius:2px 0 0 2px;box-shadow:0 calc(100% + 14px) 0 #6d6964}
   .phone::after{content:"";position:absolute;right:-7px;top:28%;width:3px;height:14%;background:#6d6964;border-radius:0 2px 2px 0}
   .phone .island{position:absolute;top:calc(9px + 2.2%);left:50%;transform:translateX(-50%);width:27%;aspect-ratio:3.6/1;background:#000;border-radius:999px;z-index:1}
   .phone img{display:block;width:100%;height:auto;aspect-ratio:900/1950;object-fit:cover;border-radius:41px}
-  .shots .phone:first-child{z-index:2}
-  .shots .phone:nth-child(2){margin-left:-40%;margin-top:70px;z-index:1}
+  .slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:41px}
+  .slides::-webkit-scrollbar{display:none}
+  .slides img{flex:0 0 100%;scroll-snap-align:center;border-radius:0}
+  .dots{display:flex;gap:8px}
+  .dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3)}
+  .dots i.on{background:#FFD54A}
   h2{font-size:clamp(26px,3.4vw,34px);margin:0 0 20px;font-weight:700}
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding-bottom:60px}
   .cardimg{width:100%;aspect-ratio:1197/1313;object-fit:contain;border-radius:20px}
@@ -74,8 +78,8 @@
       <span class="soon">Coming soon to the App Store</span>
     </div>
     <div class="shots">
-      <div class="phone"><span class="island"></span><img src="main.jpg" alt="CHUDOKU main screen" loading="lazy" /></div>
-      <div class="phone"><span class="island"></span><img src="game.jpg" alt="CHUDOKU game board" loading="lazy" /></div>
+      <div class="phone"><span class="island"></span><div class="slides"><img src="main.jpg" alt="CHUDOKU main screen" /><img src="game.jpg" alt="CHUDOKU game board" /></div></div>
+      <div class="dots"><i class="on"></i><i></i></div>
     </div>
   </section>
 
@@ -101,5 +105,8 @@
     <span><a href="privacy/">Privacy Policy</a> · <a href="terms/">Terms of Use</a> · <a href="/">atticlab.app</a></span>
   </footer>
 </div>
+<script>
+(()=>{const s=document.querySelector(".slides"),d=[...document.querySelectorAll(".dots i")];if(!s)return;let t;const at=()=>Math.round(s.scrollLeft/s.clientWidth);s.addEventListener("scroll",()=>{const k=at();d.forEach((x,i)=>x.classList.toggle("on",i===k));});const go=()=>{t=setInterval(()=>{const n=(at()+1)%d.length;s.scrollTo({left:n*s.clientWidth,behavior:"smooth"});},3000);};["pointerdown","touchstart"].forEach(e=>s.addEventListener(e,()=>{clearInterval(t);go();},{passive:true}));go();})();
+</script>
 </body>
 </html>
